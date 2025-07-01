@@ -1,0 +1,178 @@
+@use "../../styles/mixins" as mixins;
+
+.filters {
+	display: flex;
+	flex-wrap: wrap;
+	gap: .75rem .5rem;
+	margin-bottom: .75rem;
+	
+	@include mixins.breakpoint-up(lg) {
+		flex-wrap: nowrap;
+	}
+
+	&Offcanvas {
+		gap: 1.5rem;
+
+		&Header {
+			flex: 1 1;
+			display: flex;
+			justify-content: center;
+			text-align: center;
+			position: relative;
+		}
+
+		&Body {
+			display: flex;
+			flex-direction: column;
+			gap: .75rem;
+		}
+
+		&Close {
+			--_icon-size: 1.5rem;
+	
+			gap: .375rem;
+			margin-left: -.375rem;
+			position: absolute;
+			top: 50%;
+			left: 0;
+			transform: translateY(-50%);
+			z-index: 1;
+		}
+
+		&Actions {
+			display: flex;
+			align-items: center;
+			gap: .75rem;
+		}
+
+		&Action {
+			flex: 1 1;
+		}
+	}
+
+	&Collapse {
+
+		&Search {
+			margin-bottom: 1rem;
+		}
+
+		&List {
+			display: flex;
+			flex-direction: column;
+		}
+
+		&Choice {
+			padding-block: .25rem;
+		}
+	}
+}
+
+.sortSearch {
+	min-width: 12.5rem;
+
+	&Container {
+		flex: 1 1;
+		display: flex;
+		gap: .75rem;
+
+		@include mixins.breakpoint-up(lg) {
+			display: contents;
+		}
+	}
+
+	&Cancel {
+		--_fs: var(--fs-sm);
+		--_fw: 700;
+
+		--_color: var(--primary);
+
+		@include mixins.breakpoint-up(lg) {
+			display: none;
+		}
+	}
+}
+
+.sortTime {
+	--_icon-size: 1.25rem;
+
+	@include mixins.breakpoint-up(lg) {
+		--_icon-size: 1rem;
+	}
+
+	&Input {
+		font-size: var(--fs-base);
+
+		@include mixins.breakpoint-up(lg) {
+			font-size: var(--fs-sm);
+		}
+	}
+}
+
+.sortButton {
+	--_fs: var(--fs-sm);
+	--_fw: inherit;
+	--_color: var(--gray-200);
+
+	flex-direction: row-reverse;
+	justify-content: space-between;
+	text-align: start;
+	white-space: nowrap;
+
+	@include mixins.breakpoint-up(lg) {
+		--_padding: .25rem .75rem;
+		--_icon-size: 1.25rem;
+	}
+
+	&Container {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+
+		@include mixins.breakpoint-up(lg) {
+			width: initial;
+			display: contents;
+		}
+	}
+
+	&Label {
+		flex: 1 1;
+		font-size: var(--fs-sm);
+		font-weight: 700;
+		color: var(--gray-200);
+
+		@include mixins.breakpoint-up(lg) {
+			display: none;
+		}
+	}
+}
+
+.buttonSort {
+	--_fw: 400;
+	--_icon-size: 1.5rem;
+
+	flex: 1 1;
+	flex-direction: row-reverse;
+	justify-content: space-between;
+}
+
+.buttonSearch {
+	--_padding: .25rem .8125rem;
+	--_icon-size: .875rem;
+}
+
+.flexFull,
+.flexLg,
+.flexMd {
+	flex: 1 1;
+}
+
+.flexLg {
+	max-width: 11.5rem;
+	flex-basis: 11.5rem;
+}
+
+.flexMd {
+	max-width: 9rem;
+	flex-basis: 9rem;
+}

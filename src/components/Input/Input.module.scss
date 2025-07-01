@@ -1,0 +1,87 @@
+.inputContainer {
+	--_input-color: var(--gray-200);
+	--_input-focus-color: var(--light);
+
+	--_input-bg: var(--dark-500);
+	--_input-focus-bg: var(--dark-500);
+
+	--_input-border-color: var(--dark-500);
+	--_input-focus-border-color: var(--primary);
+
+	--_icon-size: .875rem;
+
+	max-width: 100%;
+	display: flex;
+	position: relative;
+}
+
+.input {
+	appearance: none;
+	width: 100%;
+	height: 3rem;
+	font-size: var(--fs-base);
+	color: var(--_input-color);
+	line-height: inherit;
+	background-color: var(--_input-bg);
+	border: .0625rem solid var(--_input-border-color);
+	border-radius: .5rem;
+	padding: .25rem .75rem;
+	outline: none;
+
+	transition-property: border-color, color, background-color;
+	transition-duration: 150ms;
+	transition-timing-function: ease-in-out;
+
+	&:is(:active, :focus-visible) {
+		color: var(--_input-focus-color);
+		border-color: var(--_input-focus-border-color);
+
+		~ .inputIcon {
+			--_color: var(--_input-focus-color);
+		}
+	}
+
+	&::placeholder {
+		line-height: inherit;
+		color: currentColor;
+	}
+
+	~ .inputIcon {
+		--_color: var(--_input-color);
+
+		transition-property: color;
+		transition-duration: 150ms;
+		transition-timing-function: ease-in-out;
+	}
+}
+
+.input-md {
+	height: 2.5rem;
+	font-size: var(--fs-sm);
+}
+
+.inputPrefix {
+	padding-left: 2.125rem;
+
+	~ .inputIcon {
+		left: .75rem;
+	}
+}
+
+.inputSuffix {
+	padding-right: 2.125rem;
+
+	~ .inputIcon {
+		right: .75rem;
+	}
+}
+
+.inputIcon {
+	--_size: var(--_icon-size);
+
+	pointer-events: none;
+	user-select: none;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}

@@ -1,0 +1,84 @@
+@use "../../styles/mixins" as mixins;
+
+.header {
+	padding-block: .5rem;
+
+	@include mixins.breakpoint-up(lg) {
+		border-bottom: .0625rem solid var(--gray-400);
+		padding-block: 1rem;
+	}
+	
+	&Container,
+	&Nav,
+	&Buttons {
+		display: flex;
+	}
+
+	&Container {
+		align-items: center;
+		gap: 2.5rem;
+	}
+
+	&Nav {
+		flex: 1 1;
+		flex-direction: column;
+		gap: .75rem;
+
+		@include mixins.breakpoint-up(lg) {
+			flex-direction: row;
+			align-items: center;
+			gap: 1.5rem;
+		}
+
+		&Link {
+			--_fs: var(--h5);
+			--_fw: 700;
+			--_border-width: .0625rem;
+			--_padding: .75rem;
+
+			--_color-hover: var(--gray-300);
+
+			--_border-color: var(--gray-400);
+			--_border-color-hover: var(--gray-400);
+			--_border-color-active: var(--gray-400);
+			--_border-color-disabled: var(--gray-400);
+
+			justify-content: initial;
+			text-align: start;
+			border-top: none;
+			border-inline: none;
+
+			@include mixins.breakpoint-up(lg) {
+				--_fs: var(--fs-base);
+				--_border-width: 0;
+				--_padding: 0;
+
+				--_color: var(--gray-200);
+
+				justify-content: center;
+				text-align: center;
+			}
+		}
+	}
+
+	&Buttons {
+		align-items: center;
+		gap: .75rem;
+	}
+
+	&Button {
+		flex: 1 1;
+
+		@include mixins.breakpoint-up(lg) {
+			flex: initial;
+		}
+	}
+
+	&Menu {
+		margin-left: auto;
+
+		@include mixins.breakpoint-up(lg) {
+			display: none;
+		}
+	}
+}

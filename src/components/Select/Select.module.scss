@@ -1,0 +1,151 @@
+@use "../../styles/mixins" as mixins;
+
+.select {
+	--_button-bg: var(--dark-500);
+	--_button-bg-hover: var(--dark-700);
+	--_button-bg-active: var(--dark-800);
+
+	display: inline-flex;
+	position: relative;
+
+	&Button {
+		--_height: 2.5rem;
+		--_fs: .875rem;
+		--_rounded: .5rem;
+		--_padding: .25rem .75rem;
+		--_icon-size: 1.5rem;
+
+		--_bg: var(--_button-bg);
+		--_bg-hover: var(--_button-bg-hover);
+		--_bg-active: var(--_button-bg-active);
+
+		flex: 1 1;
+		justify-content: space-between;
+		flex-direction: row-reverse;
+
+		&.isActive {
+			color: var(--_color-active);
+
+			.selectButtonIcon {
+				transform: rotateX(180deg);
+			}
+		}
+	}
+
+	&Dropdown {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		background-color: var(--dark-500);
+		border-radius: .5rem;
+		padding-block: .75rem;
+		padding-inline: .5rem;
+		z-index: 1020;
+
+		&Multiple {
+			width: auto;
+			min-width: 20rem;
+			padding-block: 1rem;
+		}
+	}
+
+	&ContainerSearch {
+		--_input-bg: var(--dark-300);
+		--_input-focus-bg: var(--dark-300);
+	}
+
+	&List {
+		max-height: 17.875rem;
+		display: flex;
+		flex-direction: column;
+		font-size: var(--fs-sm);
+		overflow-y: auto;
+		overflow-x: hidden;
+
+		&Empty {
+			min-height: 5rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-weight: 700;
+			color: var(--gray-200);
+			text-align: center;
+		}
+	}
+
+	&Option {
+		display: flex;
+	}
+
+	&Choice,
+	&Label {
+		flex: 1 1;
+		line-height: 1.5;
+	}
+
+	&Choice {
+		--_fs: var(--fs-sm);
+		--_rounded: .5rem;
+		--_padding: .375rem .5rem;
+
+		--_color: var(--gray-200);
+		--_color-hover: var(--gray-200);
+		--_color-active: var(--light);
+
+		--_bg-hover: var(--dark-300);
+
+		justify-content: initial;
+		text-align: start;
+	}
+
+	&Label {
+		display: flex;
+		align-items: center;
+		gap: .375rem;
+		color: var(--gray-200);
+		border-radius: .25rem;
+		padding: .25rem;
+		cursor: pointer;
+
+		transition-property: background-color;
+		transition-duration: 150ms;
+		transition-timing-function: var(--transition-timing-function);
+
+		&Icon {
+			--_size: 1.5rem;
+
+			display: none;
+			background-color: var(--dark-500);
+			border-radius: .25rem;
+
+			@include mixins.breakpoint-up(lg) {
+				display: inline-flex;
+			}
+		}
+
+		&Text {
+			flex: 1 1;
+		}
+
+		@media (hover: hover) {
+
+			&:hover {
+				background-color: var(--dark-300);
+			}
+		}
+	}
+
+	&Actions {
+		display: flex;
+		gap: .75rem;
+	}
+
+	&Action {
+		flex: 1 1;
+	}
+}
+
+.hasScroll {
+	padding-right: .25rem;
+}

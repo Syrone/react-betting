@@ -1,0 +1,123 @@
+@use "../../styles/mixins" as mixins;
+
+.footer {
+	padding-bottom: 1.5rem;
+
+	@include mixins.breakpoint-up(lg) {
+		padding-bottom: 2rem;
+	}
+
+	&Top {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 1rem;
+
+		@include mixins.breakpoint-up(lg) {
+			grid-template-columns: minmax(16.25rem, auto) 1fr minmax(16.25rem, auto);
+		}
+
+		&End {
+
+			@include mixins.breakpoint-up(lg) {
+				display: flex;
+				justify-content: end;
+			}
+		}
+	}
+
+	&Brand {
+		display: flex;
+	}
+
+	&Nav {
+
+		@include mixins.breakpoint-up(lg) {
+			display: flex;
+			justify-content: center;
+		}
+
+
+		&List {
+			column-count: 2;
+			column-gap: 4rem;
+			position: relative;
+
+			@include mixins.breakpoint-up(lg) {
+				column-count: initial;
+				column-gap: initial;
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+			}
+
+			&::after {
+				content: '';
+				width: .0625rem;
+				height: 100%;
+				display: block;
+				background-color: var(--gray-400);
+				position: absolute;
+				top: 0;
+				left: 50%;
+				transform: translateX(-50%);
+
+				@include mixins.breakpoint-up(lg) {
+					all: initial;
+				}
+			}
+		}
+
+		&Link {
+			--_color: var(--gray-200);
+			--_padding: .25rem 0;
+
+			@include mixins.breakpoint-up(lg) {
+				--_fs: var(--fs-sm);
+				--_padding: 0;
+			}
+		}
+	}
+
+	&Contacts {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: .75rem 1rem;
+	}
+
+	&Contact {
+		display: flex;
+
+		&Link {
+			--_fs: var(--fs-sm);
+			--_icon-size: 1.75rem;
+
+			gap: .375rem;
+
+			&Icon {
+				background-color: var(--dark-500);
+				border-radius: 50rem;
+				padding: .3125rem;
+			}
+		}
+	}
+
+	&Bottom {
+		margin-top: 1rem;
+		border-top: .0625rem solid var(--gray-400);
+		padding-top: 1rem;
+	}
+
+	&Copyright {
+		max-width: 20rem;
+		font-size: var(--fs-sm);
+		color: var(--gray-300);
+
+		@include mixins.breakpoint-up(lg) {
+			max-width: initial;
+			display: flex;
+			justify-content: center;
+			text-align: center;
+		}
+	}
+}

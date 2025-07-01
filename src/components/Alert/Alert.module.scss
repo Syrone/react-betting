@@ -1,0 +1,51 @@
+@use "../../styles/mixins" as mixins;
+
+.alert {
+	color: var(--gray-200);
+	background-color: var(--dark-500);
+	border-radius: .5rem;
+	padding: 1.5rem 1rem;
+	box-shadow: 0 .25rem 3rem 0 rgba(0, 0, 0, 0.12);
+	position: fixed;
+	left: max(var(--container-offset), calc((100% - var(--content-width)) / 2));
+	right: max(var(--container-offset), calc((100% - var(--content-width)) / 2));
+	bottom: 1rem;
+	z-index: 1030;
+	opacity: 0;
+	transform: translateY(-3rem);
+
+	transition-property: transform, opacity;
+	transition-duration: var(--transition-duration);
+	transition-timing-function: var(--transition-timing-function);
+
+	@include mixins.breakpoint-up(lg) {
+		padding: 1.5rem 2rem;
+		bottom: 1.5rem;
+	}
+
+	&Body {
+		display: flex;
+		flex-direction: column;
+		gap: .75rem 4rem;
+
+		@include mixins.breakpoint-up(lg) {
+			flex-direction: row;
+			align-items: center;
+		}
+	}
+
+	&Close {
+		min-width: 11.25rem;
+		flex-shrink: 0;
+		align-self: flex-start;
+
+		@include mixins.breakpoint-up(lg) {
+			align-self: initial;
+		}
+	}
+
+	&.isOpen {
+		transform: initial;
+		opacity: 1;
+	}
+}

@@ -1,0 +1,17 @@
+@use "../../styles/mixins" as mixins;
+
+.section {
+	margin-bottom: 1.5rem;
+
+	@include mixins.breakpoint-up(lg) {
+		margin-bottom: 3rem;
+	}
+
+	&:first-child {
+		margin-top: .5rem;
+
+		@include mixins.breakpoint-up(lg) {
+			margin-top: 3rem;
+		}
+	}
+}

@@ -1,0 +1,19 @@
+.tooltip {
+	--_tooltip-color: var(--gray-200);
+	--_tooltip-bg: var(--dark-500);
+
+	max-width: 9rem;
+	color: var(--_tooltip-color);
+	background-color: var(--_tooltip-bg);
+	border-radius: .25rem;
+	padding: .5rem .75rem;
+
+	&Trigger {
+		display: inline-flex;
+	}
+
+	&Content {
+		font-size: var(--fs-sm);
+		text-align: center;
+	}
+}

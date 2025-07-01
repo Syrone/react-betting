@@ -1,0 +1,41 @@
+@use "../../styles/mixins" as mixins;
+
+.tariffs {
+
+	&Container {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+
+		@include mixins.breakpoint-up(lg) {
+			gap: 2.5rem;
+		}
+	}
+
+	&List {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		row-gap: .75rem;
+
+		@include mixins.breakpoint-up(lg) {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			column-gap: 1.5rem;
+		}
+
+		@include mixins.breakpoint-up(xl) {
+			column-gap: 1.875rem;
+		}
+	}
+
+	&Item {
+		display: flex;
+
+		&:not(:nth-child(2)) {
+			
+			@include mixins.breakpoint-up(lg) {
+				align-self: center;
+				margin-block: 2.375rem;
+			}
+		}
+	}
+}

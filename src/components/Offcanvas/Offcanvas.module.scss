@@ -1,0 +1,68 @@
+.offcanvas {
+	max-width: 25rem;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 1.75rem;
+	background-color: var(--body-bg);
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: 1045;
+	transform: translateX(100%);
+	transition-property: transform;
+	transition-duration: var(--transition-duration);
+	transition-timing-function: var(--transition-timing-function);
+
+	&Header,
+	&Body,
+	&Footer {
+		padding-inline: var(--container-offset);
+	}
+
+	&Header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding-block: .5rem;
+	}
+
+	&Body {
+		flex: 1 1;
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
+
+	&Footer {
+		background-color: var(--body-bg);
+		padding-block: 0 2rem;
+	}
+
+	&Backdrop {
+		background-color: transparent;
+		cursor: pointer;
+		position: fixed;
+		inset: 0;
+		z-index: 1040;
+		transition-property: background-color;
+		transition-duration: var(--transition-duration);
+		transition-timing-function: var(--transition-timing-function);
+
+		&.isOpen {
+			background-color: rgba(0, 0, 0, .6);
+		}
+
+		&.isClosing {
+			background-color: transparent;
+		}
+	}
+
+	&.isOpen {
+		transform: translateX(0);
+	}
+
+	&.isClosing {
+		transform: translateX(100%);
+	}
+}

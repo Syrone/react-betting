@@ -1,0 +1,18 @@
+@use "../../styles/mixins" as mixins;
+
+.items {
+
+	&List {
+		display: flex;
+		flex-direction: column;
+		gap: .75rem;
+
+		@include mixins.breakpoint-up(lg) {
+			gap: .375rem;
+		}
+
+		&Item {
+			display: flex;
+		}
+	}
+}

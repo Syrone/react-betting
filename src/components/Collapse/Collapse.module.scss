@@ -1,0 +1,59 @@
+.collapse {
+	display: flex;
+	flex-direction: column;
+
+	&Button {
+		--_fw: 700;
+		--_lh: inherit;
+		--_padding: .75rem 0;
+		--_icon-size: 1.5rem;
+		--_icon-color: var(--light);
+		
+		--_color: var(--gray-200);
+		--_color-hover: var(--gray-200);
+		--_color-active: var(--gray-200);
+
+		flex-direction: row-reverse;
+		justify-content: space-between;
+		text-align: start;
+
+		&.isActive {
+
+			.collapseButtonIcon {
+				transform: rotateX(180deg);
+			}
+		}
+
+		&Icon {
+			transition-property: transform;
+			transition-duration: var(--_transition-duration);
+			transition-timing-function: var(--_transition-timing-function);
+		}
+	}
+
+	&Content {
+		display: grid;
+		grid-template-rows: 0fr;
+
+		transition-property: grid-template-rows;
+		transition-duration: var(--transition-duration);
+		transition-timing-function: var(--transition-timing-function);
+
+		&.isOpen {
+			grid-template-rows: 1fr;
+		}
+
+		&.isClosing {
+			grid-template-rows: 0fr;
+		}
+	}
+
+	&Body {
+		overflow: hidden;
+	}
+
+	&Inner {
+		border-top: .0625rem solid var(--gray-400);
+		padding-top: .75rem;
+	}
+}
