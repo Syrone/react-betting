@@ -1,8 +1,8 @@
-import { type ItemProps } from '../Item/Item'
+import { type ItemProps } from '@components/Item/Item'
 
-import Section from '../Section/Section'
-import Filters from '../Filters/Filters'
-import Item from '../Item/Item'
+import Section from '@components/Section/Section'
+import Filters from '@components/Filters/Filters'
+import Item from '@components/Item/Item'
 
 import styles from './Items.module.scss'
 

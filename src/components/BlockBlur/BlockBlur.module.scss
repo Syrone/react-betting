@@ -1,0 +1,30 @@
+@use "@styles/mixins" as mixins;
+
+.root {
+	display: grid;
+	place-content: center;
+	background-color: rgba(var(--dark-300-rgb), .20);
+	border-radius: var(--_card-rounded) var(--_card-rounded) 0 0;
+	padding: var(--_card-padding-y, 0) var(--_card-padding-x, 0);
+	backdrop-filter: blur(.25rem);
+	position: absolute;
+	inset: calc(var(--_card-padding-y, 0) * -1) calc(var(--_card-padding-x, 0) * -1) 0 calc(var(--_card-padding-x, 0) * -1);
+	z-index: 1;
+
+	@include mixins.breakpoint-up(lg) {
+		border-radius: var(--_card-rounded) 0 0 var(--_card-rounded);
+		inset: calc(var(--_card-padding-y) * -1) 0 calc(var(--_card-padding-y) * -1) calc(var(--_card-padding-x) * -1);
+	}
+}
+
+.content {
+	max-width: 16.25rem;
+	font-size: var(--h5);
+	font-weight: 700;
+	line-height: 1.3;
+	text-align: center;
+
+	@include mixins.breakpoint-up(lg) {
+		max-width: initial;
+	}
+}

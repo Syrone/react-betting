@@ -1,17 +1,21 @@
 import clsx from 'clsx'
 
-import { Button } from '../Button/Button'
-import Icon from '../Icon/Icon'
+import BlockBlur from '@components/BlockBlur/BlockBlur'
+import { Button } from '@components/Button/Button'
+import Icon from '@components/Icon/Icon'
 
 import styles from './Tariff.module.scss'
 
 export interface TariffProps {
+	subscription_id: number
 	label?: string
 	name: string
 	subname: string
 	price: string
 	list: string[]
 	chosen: boolean
+	disabled?: boolean
+	onOpenModal?: () => void
 }
 
 export default function Tariff({
@@ -20,8 +24,11 @@ export default function Tariff({
 	subname,
 	price,
 	list,
-	chosen
+	chosen,
+	disabled = false,
+	onOpenModal
 }: TariffProps) {
+
 	return (
 		<article className={clsx(
 			styles.tariff,
@@ -48,11 +55,20 @@ export default function Tariff({
 					className={styles.tariffButton}
 					size='base'
 					style='primary'
-					disabled={chosen}>
-					{chosen ? 'Выбран' : 'Оплатить тариф'}
+					onClick={onOpenModal}
+					disabled={chosen || disabled}>
+					{chosen ?
+              'Выбран' : disabled ?
+              'Недоступно' :
+              'Оплатить тариф'
+            }
 				</Button>
 
-				<div className={styles.tariffPrice}>
+				<div className={clsx(
+					styles.tariffPrice,
+					disabled && styles.blurWrapper
+				)}>
+					{disabled && <BlockBlur className={styles.blur} />}
 					<p className={clsx(
 						styles.tariffPriceLabel,
 						price === '0' && styles.isInvisible
@@ -61,16 +77,20 @@ export default function Tariff({
 					</p>
 					<div className={styles.tariffPriceWrapper}>
 						<span className={styles.tariffPriceValue}>
-							{price} $
+							{price} ₽
 						</span>
 						<span className={styles.tariffPriceSuffix}>
-							/ в месяц
+							/ в месяц
 						</span>
 					</div>
 				</div>
 			</div>
 
-			<div className={styles.tariffBottom}>
+			<div className={clsx(
+				styles.tariffBottom,
+				disabled && styles.blurWrapper
+			)}>
+				{disabled && <BlockBlur className={styles.blur} />}
 				<ul className={styles.tariffList}>
 					{list.map((item, i) => (
 						<li key={i} className={styles.tariffItem}>

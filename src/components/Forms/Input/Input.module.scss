@@ -1,0 +1,178 @@
+.inputContainer {
+	--_input-height: 3rem;
+	--_input-fs: var(--fs-base);
+	--_input-fw: var(--fw-base);
+	--_input-padding-t: .25rem;
+	--_input-padding-s: .75rem;
+	--_input-padding-b: var(--_input-padding-t);
+	--_input-padding-e: var(--_input-padding-s);
+
+	--_input-color: var(--gray-200);
+	--_input-focus-color: var(--light);
+
+	--_input-bg: var(--dark-500);
+	--_input-focus-bg: var(--dark-500);
+
+	--_input-border-color: var(--dark-500);
+	--_input-focus-border-color: var(--primary);
+
+	--_icon-size: .875rem;
+
+	max-width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: .25rem;
+	position: relative;
+}
+
+.input {
+	appearance: none;
+	width: 100%;
+	height: var(--_input-height);
+	display: block;
+	font-size: var(--_input-fs);
+	font-weight: var(--_input-fw);
+	color: var(--_input-color);
+	line-height: inherit;
+	background-color: var(--_input-bg);
+	border: .0625rem solid var(--_input-border-color);
+	border-radius: .5rem;
+	padding: var(--_input-padding-t) var(--_input-padding-e) var(--_input-padding-b) var(--_input-padding-s);
+	outline: none;
+
+	transition-property: border-color, color, background-color;
+	transition-duration: 150ms;
+	transition-timing-function: ease-in-out;
+
+	&:is(:active, :focus-visible) {
+		color: var(--_input-focus-color);
+		border-color: var(--_input-focus-border-color);
+	}
+
+	&:not(:placeholder-shown) {
+
+		~ .inputPlaceholder {
+			display: none;
+		}
+	}
+
+	&Focus {
+		
+		.inputIcon {
+
+			&:not(.inputIconDanger) {
+				--_color: var(--_input-focus-color);
+			}
+		}
+	}
+
+	&Readonly {
+		--_input-fw: 700;
+		--_input-color: var(--light);
+
+		overflow: hidden;
+
+		.input {
+			display: flex;
+			align-items: center;
+			user-select: all;
+
+			> span {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		}
+
+		&.inputSuffix {
+			--_input-padding-e: 3rem;
+		}
+	}
+
+	&Wrapper {
+		flex: 1 1;
+		position: relative;
+	}
+
+	&Placeholder {
+		font-size: var(--_input-fs);
+		font-weight: var(--_input-fw);
+		line-height: inherit;
+		color: var(--_input-color);
+		pointer-events: none;
+		user-select: none;
+		position: absolute;
+		top: 50%;
+		left: var(--_input-padding-s);
+		transform: translateY(-50%);
+	}
+
+	&Required {
+		display: inline-block;
+		margin-left: .25rem;
+		color: var(--error);
+		transform: translateY(-.25em);
+	}
+
+	&Btn {
+		--_icon-size: 1.25rem;
+
+		position: absolute;
+		top: 50%;
+		right: .75rem;
+		transform: translateY(-50%);
+	}
+
+	&Copy {
+		--_icon-size: 1.5rem;
+	}
+}
+
+.inputIcon {
+	--_size: var(--_icon-size);
+	--_color: var(--_input-color);
+
+	pointer-events: none;
+	user-select: none;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+
+	transition-property: color;
+	transition-duration: 150ms;
+	transition-timing-function: ease-in-out;
+
+	&Danger {
+		--_size: 1.125rem;
+		--_color: var(--error);
+	}
+}
+
+.inputPrefix {
+	--_input-padding-s: 2.125rem;
+
+	.inputIcon {
+		left: .75rem;
+	}
+}
+
+.inputSuffix {
+	--_input-padding-e: 2.125rem;
+
+	.inputIcon {
+		right: .75rem;
+	}
+
+	&Error {
+		--_input-padding-e: 4.25rem;
+
+		.inputIconDanger {
+			right: 2.5rem;
+		}
+	}
+}
+
+.input-md {
+	--_input-height: 2.5rem;
+	--_input-fs: var(--fs-sm);
+}

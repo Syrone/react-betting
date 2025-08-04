@@ -2,10 +2,12 @@ import { useRef } from 'react'
 import { createPortal } from 'react-dom'
 import clsx from 'clsx'
 
-import useEscapeClose from '../../hooks/useEscapeClose'
-import useScrollLock from '../../hooks/useScrollLock'
+import useEscapeClose from '@hooks/useEscapeClose'
+import useScrollLock from '@hooks/useScrollLock'
 
-import { Button } from '../Button/Button'
+import Brand from '@components/Brand/Brand'
+import { Button } from '@components/Button/Button'
+import Icon from '@components/Icon/Icon'
 
 import styles from './Modal.module.scss'
 
@@ -13,18 +15,19 @@ export type ModalState = 'opening' | 'open' | 'closing' | 'closed'
 
 interface ModalProps {
 	state: ModalState,
+	type?: string,
 	className?: string,
 	onClose: () => void,
 	children: React.ReactNode,
 }
 
 type Compound = React.FC<ModalProps> & {
-	Header: React.FC<{ children?: React.ReactNode, title: string, onClose: () => void }>
+	Header: React.FC<{ custom?: boolean, children?: React.ReactNode, brand?: boolean, title?: string, titleIcon?: string, subtitle?: string, onClose: () => void }>
 	Body: React.FC<{ children: React.ReactNode }>
 	Footer?: React.FC<{ children: React.ReactNode }>
 }
 
-const Modal = (({ state, className, onClose, children }) => {
+const Modal = (({ state, type, className, onClose, children }) => {
 	const ref = useRef<HTMLDivElement>(null)
 
 	const handleClickOutside = (e: React.MouseEvent) => {
@@ -55,6 +58,9 @@ const Modal = (({ state, className, onClose, children }) => {
 				className={clsx(
 					styles.modal,
 					className,
+					type === 'form' && styles.modalForm,
+					type === 'dashboard' && styles.modalDashboard,
+					type === 'dashboard-bigger' && styles.modalDashboardBigger,
 					state === 'opening' && styles.isOpening,
 					state === 'open' && styles.isOpen,
 					state === 'closing' && styles.isClosing
@@ -71,17 +77,41 @@ const Modal = (({ state, className, onClose, children }) => {
 	)
 }) as Compound
 
-Modal.Header = ({ children, title, onClose }) => (
-	<div className={styles.modalHeader}>
-		<h4 className={styles.modalTitle}>{title}</h4>
-		{children}
-		<Button
-			className={styles.modalClose}
-			style='icon'
-			icon='close'
-			onClick={onClose} />
-	</div>
-)
+Modal.Header = ({ custom = false, children, brand, title, titleIcon, subtitle, onClose }) => {
+	if (custom) {
+		return (
+			<div className={styles.modalHeader}>
+				{children}
+
+				{brand && <Brand className={styles.modalBrand} />}
+				<Button
+					className={styles.modalClose}
+					style='icon'
+					icon='close'
+					onClick={onClose} />
+			</div>
+		)
+	}
+
+	return (
+		<div className={styles.modalHeader}>
+			{brand && <Brand className={styles.modalBrand} />}
+			<div className={styles.modalHeaderContent}>
+				<h4 className={styles.modalTitle}>
+					{titleIcon && <Icon name={titleIcon} className={styles.modalTitleIcon} />}
+					{title}
+				</h4>
+				{subtitle && <p className={styles.modalSubtitle}>{subtitle}</p>}
+				{children}
+			</div>
+			<Button
+				className={styles.modalClose}
+				style='icon'
+				icon='close'
+				onClick={onClose} />
+		</div>
+	)
+}
 Modal.Body = ({ children }) => (
 	<div className={styles.modalBody}>{children}</div>
 )

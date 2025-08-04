@@ -1,36 +1,34 @@
 import { useState, useEffect } from 'react'
 import clsx from 'clsx'
 
-import useMediaQuery from '../../hooks/useMediaQuery'
+import useMediaQuery from '@hooks/useMediaQuery'
 
-import { Button } from '../Button/Button'
-import Input from '../Input/Input'
-import Select from '../Select/Select'
-import Offcanvas from '../Offcanvas/Offcanvas'
-import Collapse from '../Collapse/Collapse'
-import ToggleInput from '../ToggleInput/ToggleInput'
-
-import { type Option } from '../Select/Select'
+import { Button } from '@components/Button/Button'
+import Input from '@/components/Forms/Input/Input'
+import Select, { type Option } from '@/components/Forms/Select/Select'
+import Offcanvas from '@components/Offcanvas/Offcanvas'
+import Collapse from '@components/Collapse/Collapse'
+import ToggleInput from '@/components/Forms/ToggleInput/ToggleInput'
 
 import styles from './Filters.module.scss'
 
 type Props = {}
 
 const SELECT_BETTING: Option[] = [
-	{ icon: 'icon', label: 'EsporteNetVip', value: 'betting-0' },
-	{ icon: 'icon', label: 'NairaBet', value: 'betting-1' },
-	{ icon: 'icon', label: 'Piwi247', value: 'betting-2' },
-	{ icon: 'icon', label: 'OrbitX', value: 'betting-3' },
-	{ icon: 'icon', label: 'Matchbook', value: 'betting-4' },
-	{ icon: 'icon', label: 'Piwi247', value: 'betting-5' },
-	{ icon: 'icon', label: 'EsporteNetVip', value: 'betting-6' },
-	{ icon: 'icon', label: 'EsporteNetVip', value: 'betting-7' },
-	{ icon: 'icon', label: 'NairaBet', value: 'betting-8' },
-	{ icon: 'icon', label: 'Piwi247', value: 'betting-9' },
-	{ icon: 'icon', label: 'OrbitX', value: 'betting-10' },
-	{ icon: 'icon', label: 'Matchbook', value: 'betting-11' },
-	{ icon: 'icon', label: 'Piwi247', value: 'betting-12' },
-	{ icon: 'icon', label: 'EsporteNetVip', value: 'betting-13' },
+	{ icon: 'bitcoin', label: 'EsporteNetVip', value: 'betting-0' },
+	{ icon: 'bitcoin', label: 'NairaBet', value: 'betting-1' },
+	{ icon: 'bitcoin', label: 'Piwi247', value: 'betting-2' },
+	{ icon: 'bitcoin', label: 'OrbitX', value: 'betting-3' },
+	{ icon: 'bitcoin', label: 'Matchbook', value: 'betting-4' },
+	{ icon: 'bitcoin', label: 'Piwi247', value: 'betting-5' },
+	{ icon: 'bitcoin', label: 'EsporteNetVip', value: 'betting-6' },
+	{ icon: 'bitcoin', label: 'EsporteNetVip', value: 'betting-7' },
+	{ icon: 'bitcoin', label: 'NairaBet', value: 'betting-8' },
+	{ icon: 'bitcoin', label: 'Piwi247', value: 'betting-9' },
+	{ icon: 'bitcoin', label: 'OrbitX', value: 'betting-10' },
+	{ icon: 'bitcoin', label: 'Matchbook', value: 'betting-11' },
+	{ icon: 'bitcoin', label: 'Piwi247', value: 'betting-12' },
+	{ icon: 'bitcoin', label: 'EsporteNetVip', value: 'betting-13' },
 ]
 
 const SELECT_EVENTS: Option[] = [
@@ -141,7 +139,7 @@ export default function Filters({ }: Props) {
 			)}
 			name='spawn-time'
 			inputSize='md'
-			placeholder="Время появления"
+			inputPlaceholder="Время появления"
 			suffixIcon="error"
 		/>
 	)
@@ -177,7 +175,7 @@ export default function Filters({ }: Props) {
 								)}
 								name='search'
 								inputSize='md'
-								placeholder="Поиск по событию"
+								inputPlaceholder="Поиск по событию"
 								prefixIcon="search"
 							/>
 							<Button
@@ -303,7 +301,7 @@ export default function Filters({ }: Props) {
 									prefixIcon='search'
 									inputSize='md'
 									containerClassName={styles.filtersCollapseSearch}
-									placeholder='Поиск по букмекеру' />
+									inputPlaceholder='Поиск по букмекеру' />
 								<ul className={styles.filtersCollapseList}>
 									{SELECT_BETTING.map(item => (
 										<li key={item.value}>

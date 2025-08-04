@@ -1,0 +1,54 @@
+.switch {
+	--_switch-color: var(--light);
+	--_slider-color: var(--light);
+	--_slider-bg: var(--dark-500);
+	--_slider-margin: .25rem;
+
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	cursor: pointer;
+
+  &Slider {
+		width: 3.25rem;
+		height: 2rem;
+		flex-shrink: 0;
+		background-color: var(--dark-500);
+		border-radius: 50rem;
+		position: relative;
+
+		transition-property: background-color;
+		transition-duration: var(--transition-duration);
+		transition-timing-function: var(--transition-timing-function);
+
+		&::before {
+			content: '';
+			height: calc(100% - var(--_slider-margin));
+			aspect-ratio: 1 / 1;
+			background-color: var(--_slider-color);
+			border-radius: 50%;
+			margin: calc(var(--_slider-margin) * .5);
+			position: absolute;
+			top: 0;
+			left: 0;
+
+			transition-property: background-color, transform;
+			transition-duration: var(--transition-duration);
+			transition-timing-function: var(--transition-timing-function);
+		}
+	}
+		
+	&Input {
+		
+		&:checked {
+
+			+ .switchSlider {
+				background-color: var(--primary);
+
+				&::before {
+					transform: translateX(calc(100% - var(--_slider-margin) * 2));
+				}
+			}
+		}
+	}
+}

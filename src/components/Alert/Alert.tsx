@@ -1,10 +1,10 @@
 import React from "react"
 import clsx from 'clsx'
 
-import useEscapeClose from '../../hooks/useEscapeClose'
+import useEscapeClose from '@hooks/useEscapeClose'
 
-import { Button } from '../Button/Button'
-import Icon from '../Icon/Icon'
+import { Button } from '@components/Button/Button'
+import Icon from '@components/Icon/Icon'
 
 import styles from './Alert.module.scss'
 

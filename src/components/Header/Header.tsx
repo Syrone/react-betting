@@ -1,11 +1,18 @@
 import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import clsx from 'clsx'
 
-import useMediaQuery from '../../hooks/useMediaQuery'
+import { useAppDispatch } from '@redux/store'
+import { logoutUser } from '@redux/auth/slice'
+import { selectorAuth } from '@redux/auth/selectors'
 
-import Brand from '../Brand/Brand'
-import { Button, ButtonLink } from '../Button/Button'
-import Offcanvas from '../Offcanvas/Offcanvas'
+import useMediaQuery from '@hooks/useMediaQuery'
+
+import Auth, { type AuthMode } from '@components/Auth/Auth'
+import Brand from '@components/Brand/Brand'
+import { Button, ButtonLink } from '@components/Button/Button'
+import Dropdown, { type DropdownOption } from '@components/Dropdown/Dropdown'
+import Offcanvas from '@components/Offcanvas/Offcanvas'
 
 import styles from './Header.module.scss'
 
@@ -14,13 +21,22 @@ type Props = {}
 const HEADER_NAV = [
 	{ label: 'Букмекерские вилки', href: '/' },
 	{ label: 'Коридоры', href: '/' },
-	{ label: 'Ставки с перевесом', href: '/' },
+	{ label: 'Ставки с перевесом', href: '/' },
 	{ label: 'Тарифы', href: '/tariffs' },
 ]
 
 export default function Header({ }: Props) {
+	const dispatch = useAppDispatch()
+	const { isAuth, user } = useSelector(selectorAuth)
+	const [authMode, setAuthMode] = useState<AuthMode>('login')
+	const [authModalState, setAuthModalState] = useState<'closed' | 'opening' | 'open' | 'closing'>('closed')
 	const [offcanvasState, setOffcanvasState] = useState<'closed' | 'opening' | 'open' | 'closing'>('closed')
 	const isDesktop = useMediaQuery('(min-width: 992px)')
+
+	const NAV: DropdownOption[] = [
+		{ label: 'Профиль', href: '/account' },
+		{ label: 'Выход', href: '/', onClick: () => dispatch(logoutUser()) },
+	]
 
 	useEffect(() => {
 		isDesktop && setOffcanvasState('closed')
@@ -36,8 +52,26 @@ export default function Header({ }: Props) {
 
 	const closeOffcanvas = () => {
 		setOffcanvasState('closing')
+
 		setTimeout(() => {
 			setOffcanvasState('closed')
+		}, 300)
+	}
+
+	const openAuthModal = (mode: AuthMode) => {
+		setAuthMode(mode)
+		setAuthModalState('opening')
+
+		requestAnimationFrame(() => {
+			setAuthModalState('open')
+		})
+	}
+
+	const closeAuthModal = () => {
+		setAuthModalState('closing')
+
+		setTimeout(() => {
+			setAuthModalState('closed')
 		}, 300)
 	}
 
@@ -55,12 +89,22 @@ export default function Header({ }: Props) {
 		</nav>
 	)
 
-	const authBtns = (size?: 'sm' | 'base') => (
-		<div className={styles.headerButtons}>
-			<Button style='primary' size={size} className={styles.headerButton}>Войти</Button>
-			<Button style='outline-primary' size={size} className={styles.headerButton}>Регистрация</Button>
-		</div>
-	)
+	const userBtns = (size?: 'sm' | 'base') => {
+		return isAuth ? (
+			<div className={styles.headerButtons}>
+				<Dropdown label={user?.username ?? 'Пользователь'} options={NAV} />
+			</div>
+		) : (
+			<div className={styles.headerButtons}>
+				<Button style='primary' size={size} className={styles.headerButton} onClick={() => openAuthModal('login')}>
+					Войти
+				</Button>
+				<Button style='outline-primary' size={size} className={styles.headerButton} onClick={() => openAuthModal('register')}>
+					Регистрация
+				</Button>
+			</div>
+		)
+	}
 
 	return (
 		<>
@@ -74,7 +118,7 @@ export default function Header({ }: Props) {
 					{isDesktop && (
 						<>
 							{navContent}
-							{authBtns('sm')}
+							{userBtns('sm')}
 						</>
 					)}
 
@@ -96,9 +140,15 @@ export default function Header({ }: Props) {
 					{navContent}
 				</Offcanvas.Body>
 				<Offcanvas.Footer>
-					{authBtns('base')}
+					{userBtns('base')}
 				</Offcanvas.Footer>
 			</Offcanvas>
+
+			<Auth
+				state={authModalState}
+				mode={authMode}
+				onClose={closeAuthModal}
+			/>
 		</>
 	)
 }

@@ -1,0 +1,70 @@
+.auth {
+
+	&Form {
+		display: flex;
+		flex-direction: column;
+		gap: .75rem;
+	}
+
+	&Add {
+
+		&Wrapper {
+			display: flex;
+			flex-direction: column;
+			margin-top: .25rem;
+		}
+	}
+
+	&Actions,
+	&Buttons {
+		display: flex;
+		flex-direction: column;
+	}
+
+	&Actions {
+		gap: .375rem;
+	}
+
+	&Buttons {
+		gap: 1rem;
+	}
+
+	&Policy,
+	&Account {
+		text-align: center;
+	}
+
+	&Policy {
+		font-size: var(--fs-xs);
+		color: var(--gray-200);
+	}
+
+	&Account {
+		color: var(--gray-200);
+
+		&Btn {
+			--_fs: inherit;
+			--_fw: inherit;
+			--_lh: inherit;
+
+			--_color: inherit;
+
+			display: inline;
+		}
+	}
+
+	&Google {
+		--_icon-size: 1.25rem;
+	}
+
+	&Toggle {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-top: .375rem;
+	}
+	
+	&Success {
+		align-self: center;
+	}
+}

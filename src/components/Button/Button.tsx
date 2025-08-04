@@ -3,7 +3,7 @@ import React, { type ButtonHTMLAttributes, type AnchorHTMLAttributes, forwardRef
 import { Link } from 'react-router-dom'
 import clsx from "clsx"
 
-import Icon from "../Icon/Icon"
+import Icon from "@components/Icon/Icon"
 
 import styles from './Button.module.scss'
 

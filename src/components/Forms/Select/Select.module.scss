@@ -1,4 +1,4 @@
-@use "../../styles/mixins" as mixins;
+@use "@styles/mixins" as mixins;
 
 .select {
 	--_button-bg: var(--dark-500);
@@ -29,6 +29,11 @@
 			.selectButtonIcon {
 				transform: rotateX(180deg);
 			}
+		}
+
+		.selectLabel {
+			pointer-events: none;
+			padding: 0;
 		}
 	}
 
@@ -115,13 +120,7 @@
 		&Icon {
 			--_size: 1.5rem;
 
-			display: none;
-			background-color: var(--dark-500);
-			border-radius: .25rem;
-
-			@include mixins.breakpoint-up(lg) {
-				display: inline-flex;
-			}
+			display: inline-flex;
 		}
 
 		&Text {
@@ -148,4 +147,20 @@
 
 .hasScroll {
 	padding-right: .25rem;
+}
+
+.select-base {
+
+	.selectButton {
+		--_height: 3rem;
+		--_fs: var(--fs-base);
+	}
+
+	.selectLabel {
+		gap: .5rem;
+
+		&Icon {
+			--_size: 1.75rem
+		}
+	}
 }

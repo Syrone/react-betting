@@ -2,8 +2,8 @@ import { useRef } from 'react'
 import { createPortal } from 'react-dom'
 import clsx from 'clsx'
 
-import useEscapeClose from '../../hooks/useEscapeClose'
-import useScrollLock from '../../hooks/useScrollLock'
+import useEscapeClose from '@hooks/useEscapeClose'
+import useScrollLock from '@hooks/useScrollLock'
 
 import styles from './Offcanvas.module.scss'
 

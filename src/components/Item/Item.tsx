@@ -1,14 +1,15 @@
 import { useState } from 'react'
 import clsx from 'clsx'
 
-import useMediaQuery from '../../hooks/useMediaQuery'
+import useMediaQuery from '@hooks/useMediaQuery'
 
-import { Button, ButtonAnchor } from '../Button/Button'
-import Icon from '../Icon/Icon'
-import Input from '../Input/Input'
-import ToggleInput from '../ToggleInput/ToggleInput'
-import Tooltip from '../Tooltip/Tooltip'
-import Modal from '../Modal/Modal'
+import { Button, ButtonAnchor } from '@components/Button/Button'
+import Icon from '@components/Icon/Icon'
+import Input from '@/components/Forms/Input/Input'
+import ToggleInput from '@/components/Forms/ToggleInput/ToggleInput'
+import Tooltip from '@components/Tooltip/Tooltip'
+import Modal from '@components/Modal/Modal'
+import BlockBlur from '@components/BlockBlur/BlockBlur'
 
 import styles from './Item.module.scss'
 
@@ -80,13 +81,7 @@ export default function Item(
 					status === 'paid' && styles.itemStatusPaid
 				)}>
 					{status === 'paid' && (
-						<div className={styles.itemStatusCloser}>
-							<div className={styles.itemStatusContent}>
-								<p>
-									Доступ только по подписке
-								</p>
-							</div>
-						</div>
+						<BlockBlur content='Доступ только по подписке' className={styles.itemStatusCloser} />
 					)}
 					<div className={styles.itemMatch}>
 						<ul className={styles.itemDetails}>
@@ -281,13 +276,7 @@ export default function Item(
 							status === 'paid' && styles.itemStatusPaid
 						)}>
 							{status === 'paid' && (
-								<div className={styles.itemStatusCloser}>
-									<div className={styles.itemStatusContent}>
-										<p>
-											Доступ только по подписке
-										</p>
-									</div>
-								</div>
+								<BlockBlur content='Доступ только по подписке' className={styles.itemStatusCloser} />
 							)}
 							<div className={styles.itemModalHeader}>
 								<div className={styles.itemMatch}>
@@ -317,7 +306,7 @@ export default function Item(
 										inputSize={isDesktop ? '' : 'md'}
 										type='text'
 										name='bet-amount'
-										placeholder={isDesktop ? 'Введите сумму ставки' : 'Cумма ставки'} />
+										inputPlaceholder={isDesktop ? 'Введите сумму ставки' : 'Cумма ставки'} />
 									<Button
 										className={styles.itemModalCalcButton}
 										size={isDesktop ? 'base': 'md'}

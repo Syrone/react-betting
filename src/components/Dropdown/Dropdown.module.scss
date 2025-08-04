@@ -1,0 +1,58 @@
+.dropdown {
+	display: inline-flex;
+
+	&Toggle {
+		--_fw: 700;
+		--_icon-size: 1.25rem;
+		
+		flex-direction: row-reverse;
+
+		&.isActive {
+
+			.dropdownToggleIcon {
+				transform: rotate(180deg);
+			}
+		}
+	}
+
+	&Menu {
+		min-width: 7.5rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		background-color: var(--dark-500);
+		border-radius: .5rem;
+		padding-block: .75rem;
+		padding-inline: .5rem;
+		z-index: 1020;
+	}
+
+	&List {
+		max-height: 17.875rem;
+		display: flex;
+		flex-direction: column;
+		font-size: var(--fs-sm);
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
+
+	&Item {
+		display: flex;
+	}
+
+	&Choice {
+		--_fs: var(--fs-sm);
+		--_rounded: .5rem;
+		--_padding: .375rem .5rem;
+
+		--_color: var(--gray-200);
+		--_color-hover: var(--gray-200);
+		--_color-active: var(--light);
+
+		--_bg-hover: var(--dark-300);
+
+		flex: 1 1;
+		justify-content: initial;
+		text-align: start;
+	}
+}

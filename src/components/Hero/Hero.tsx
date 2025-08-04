@@ -1,15 +1,13 @@
-import Image from '../../assets/img/hero/image.png'
+import Image from '@img/hero/image.png'
 
-import { ButtonLink } from '../Button/Button'
-import Section from '../Section/Section'
+import { ButtonLink } from '@components/Button/Button'
+import Section from '@components/Section/Section'
 
 import styles from './Hero.module.scss'
 
 type Props = {}
 
 export default function Hero({ }: Props) {
-	console.log(styles)
-
 	return (
 		<Section className={styles.hero}>
 			<div className={styles.heroInner}>

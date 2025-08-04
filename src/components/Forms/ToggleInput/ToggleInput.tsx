@@ -1,7 +1,7 @@
 import React, { forwardRef, type ChangeEventHandler, type InputHTMLAttributes, useEffect, useRef } from 'react'
 import clsx from 'clsx'
 
-import Icon from '../Icon/Icon'
+import Icon from '@components/Icon/Icon'
 
 import styles from './ToggleInput.module.scss'
 

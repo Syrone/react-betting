@@ -1,10 +1,10 @@
-@use "mixins" as mixins;
-@use "variables";
+@use "@styles/mixins" as mixins;
+@use "@styles/variables";
 
 @use 'reset-css';
 
-@include mixins.font-face("Roboto", "Roboto-Regular", 400, normal);
-@include mixins.font-face("Roboto", "Roboto-Bold", 700, normal);
+@include mixins.font-face("GothamPro", "GothamPro", 400, normal);
+@include mixins.font-face("GothamPro", "GothamPro-Bold", 700, normal);
 
 *,
 *::after,
@@ -38,7 +38,7 @@ main {
 
 #root,
 main {
-	flex: 1;
+	flex: 1 1;
 }
 
 .container {
@@ -95,6 +95,60 @@ p {
       margin-top: 1rem;
     }
   }
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  font-size: var(--fs-base);
+  color: var(--gray-200);
+
+  &::after,
+  &::before {
+    content: '';
+    height: .0625rem;
+    flex: 1 1;
+    background-color: var(--dark-600);
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  clip: rect(0 0 0 0);
+}
+
+.d-none {
+  display: none !important;
+}
+
+.d-lg-none {
+
+  @include mixins.breakpoint-up(lg) {
+    display: none !important;
+  }
+}
+
+.d-lg-block {
+
+  @include mixins.breakpoint-up(lg) {
+    display: block !important;
+  }
+}
+
+.text-primary {
+  color: var(--primary) !important;
+}
+
+::selection {
+  color: var(--dark);
+  background-color: var(--primary);
 }
 
 ::-webkit-scrollbar {

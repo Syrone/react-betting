@@ -1,17 +1,23 @@
-@use "../../styles/mixins" as mixins;
+@use "@styles/mixins" as mixins;
 
 .tariff {
+	--_card-padding-y: 1.5rem;
+	--_card-padding-x: var(--container-offset);
+	--_card-rounded: 1rem;
+
 	flex: 1 1;
 	display: flex;
 	flex-direction: column;
 	gap: 1.5rem;
-	border-radius: 1rem;
+	border-radius: var(--_card-rounded);
 	border: .0625rem solid var(--gray-400);
-	padding: 1.5rem var(--container-offset);
+	padding: var(--_card-padding-y) var(--_card-padding-x);
 
 	@include mixins.breakpoint-up(lg) {
+		--_card-padding-y: 2rem;
+		--_card-padding-x: 1.5rem;
+
 		gap: 3rem;
-		padding: 2rem 1.5rem;
 	}
 
 	&.isLabel {
@@ -54,11 +60,7 @@
 	}
 
 	&Name {
-		font-size: var(--h4);
-
-		@include mixins.breakpoint-up(xl) {
-			font-size: var(--h3);
-		}
+		font-size: var(--h3);
 	}
 
 	&Subname {
@@ -68,6 +70,14 @@
 	&Price {
 		font-size: var(--fs-sm);
 		color: var(--gray-300);
+
+		.blur {
+			top: calc((var(--_card-padding-y) - .5rem) * -1);
+
+			@include mixins.breakpoint-up(lg) {
+				bottom: -3rem;
+			}
+		}
 
 		&Label {
 
@@ -94,6 +104,10 @@
 	&Bottom {
 		border-top: .0625rem solid var(--gray-400);
 		padding-top: 1.5rem;
+
+		.blur {
+			top: 0;
+		}
 	}
 
 	&List {
@@ -112,4 +126,13 @@
 			--_color: var(--primary);
 		}
 	}
+}
+
+.blurWrapper {
+	position: relative;
+}
+
+.blur {
+	backdrop-filter: blur(1rem);
+	inset: calc(var(--_card-padding-y) * -1) calc(var(--_card-padding-x) * -1);
 }

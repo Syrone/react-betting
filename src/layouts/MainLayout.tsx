@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Outlet } from 'react-router'
 
-import useCookie from '../hooks/useCookie'
+import useCookie from '@hooks/useCookie'
 
-import { type AlertState } from '../components/Alert/Alert'
+import { type AlertState } from '@components/Alert/Alert'
 
-import Header from '../components/Header/Header'
-import Footer from '../components/Footer/Footer'
-import Alert from '../components/Alert/Alert'
+import Header from '@components/Header/Header'
+import Footer from '@components/Footer/Footer'
+import Alert from '@components/Alert/Alert'
 
 type Props = {}
 

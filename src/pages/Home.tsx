@@ -1,5 +1,5 @@
-import Hero from '../components/Hero/Hero'
-import Items from '../components/Items/Items'
+import Hero from '@components/Hero/Hero'
+import Items from '@components/Items/Items'
 
 type Props = {}
 

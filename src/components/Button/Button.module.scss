@@ -1,4 +1,4 @@
-@use "../../styles/mixins" as mixins;
+@use "@styles/mixins" as mixins;
 
 .btn {
 	--_width: initial;
@@ -143,6 +143,15 @@
 	--_border-color-disabled: var(--dark-500);
 }
 
+.btn-text-primary {
+	--_fw: 700;
+	--_lh: inherit;
+	
+	--_color: var(--primary);
+	--_color-hover: var(--text-color);
+	--_color-active: var(--primary);
+}
+
 .btn-secondary {
 	--_color: var(--light);
 	--_color-hover: var(--light);
@@ -169,4 +178,12 @@
 
 .btn-icon {
 	--_icon-size: 1.75rem;
+}
+
+.btn-icon-base {
+	--_height: 3rem;
+	--_fw: 700;
+	--_rounded: .375rem;
+	--_padding: .25rem .75rem;
+	--_icon-size: 1.5rem;
 }

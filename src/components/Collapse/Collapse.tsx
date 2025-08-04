@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from 'react'
 import clsx from 'clsx'
 
-import { Button } from '../Button/Button'
+import { Button } from '@components/Button/Button'
 
 import styles from './Collapse.module.scss'
 

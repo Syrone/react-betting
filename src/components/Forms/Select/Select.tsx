@@ -2,10 +2,10 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useFloating, offset, flip, shift, autoUpdate } from '@floating-ui/react'
 import clsx from 'clsx'
 
-import { Button } from '../Button/Button'
-import Icon from '../Icon/Icon'
-import Input from '../Input/Input'
-import ToggleInput from '../ToggleInput/ToggleInput'
+import { Button } from '@components/Button/Button'
+import Icon from '@components/Icon/Icon'
+import Input from '@/components/Forms/Input/Input'
+import ToggleInput from '@/components/Forms/ToggleInput/ToggleInput'
 
 import styles from './Select.module.scss'
 
@@ -19,6 +19,9 @@ interface SelectProps {
 	className?: string,
 	options: Option[]
 	multiple?: boolean
+	withIcon?: boolean
+	labelChanged?: boolean
+	size?: string
 	placeholder?: string
 	searchPlaceholder?: string
 	value?: string
@@ -30,6 +33,9 @@ const Select: React.FC<SelectProps> = ({
 	className,
 	options,
 	multiple = false,
+	withIcon = false,
+	labelChanged = false,
+	size,
 	placeholder = 'Placeholder',
 	searchPlaceholder = 'Search Placeholder',
 	value,
@@ -119,6 +125,7 @@ const Select: React.FC<SelectProps> = ({
 		<div
 			className={clsx(
 				styles.select,
+				size && styles[`select-${size}`],
 				className
 			)}
 			ref={containerRef}>
@@ -132,7 +139,26 @@ const Select: React.FC<SelectProps> = ({
 				iconClassName={styles.selectButtonIcon}
 				icon='arrowBottom'
 				onClick={toggleOpen}>
-				{placeholder}
+				{labelChanged ? (
+					<span className={styles.selectLabel}>
+						{withIcon && !multiple && (
+							<Icon
+								className={styles.selectLabelIcon}
+								name={options.find(opt => opt.value === value)?.icon || 'icon'}
+							/>
+						)}
+						{multiple ? (
+							values?.length
+								? values
+									.map(val => options.find(opt => opt.value === val)?.label)
+									.filter(Boolean)
+									.join(', ')
+								: placeholder
+						) : (
+							options.find(opt => opt.value === value)?.label || placeholder
+						)}
+					</span>
+				) : placeholder}
 			</Button>
 			{isOpen && (
 				<div
@@ -152,7 +178,7 @@ const Select: React.FC<SelectProps> = ({
 							prefixIcon='search'
 							inputSize='md'
 							containerClassName={styles.selectContainerSearch}
-							placeholder={searchPlaceholder}
+							inputPlaceholder={searchPlaceholder}
 							value={searchTerm}
 							onChange={e => setSearchTerm(e.target.value)} />
 					)}
@@ -192,6 +218,11 @@ const Select: React.FC<SelectProps> = ({
 										className={styles.selectChoice}
 										isActive={value === option.value}
 										onClick={() => handleSingleSelect(option)}>
+										{option.icon && (
+											<Icon
+												className={styles.selectLabelIcon}
+												name={option.icon} />
+										)}
 										{option.label}
 									</Button>
 								)}

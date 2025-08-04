@@ -1,4 +1,4 @@
-import TariffSection from '../components/TariffSection/TariffSection'
+import TariffSection from '@components/TariffSection/TariffSection'
 
 type Props = {}
 

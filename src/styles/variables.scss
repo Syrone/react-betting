@@ -1,8 +1,8 @@
-@use "mixins" as mixins;
+@use "@styles/mixins" as mixins;
 
 :root {
-	--font-family: "Roboto", sans-serif;
-  --content-width: 1290px;
+	--font-family: "GothamPro", sans-serif;
+  --content-width: 80.625rem;
   --container-offset: .9375rem;
   --container-width: calc(var(--content-width) + (var(--container-offset) * 2));
 
@@ -16,8 +16,8 @@
 
   --h1: 2rem;
   --h2: 3rem;
-  --h3: 2rem;
-  --h4: 1.5rem;
+  --h3: 1.5rem;
+  --h4: 1.25rem;
   --h5: 1.25rem;
 
 	--title-color: #181818;
