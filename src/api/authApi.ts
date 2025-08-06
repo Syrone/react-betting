@@ -4,7 +4,10 @@ import $plainApi from '@api/plainApi'
 
 const $api = axios.create({
 	withCredentials: true,
-	baseURL: import.meta.env.VITE_API_URL
+	baseURL: import.meta.env.VITE_API_URL,
+	headers: {
+    'ngrok-skip-browser-warning': 'true'
+  },
 })
 
 $api.interceptors.request.use((config) => {

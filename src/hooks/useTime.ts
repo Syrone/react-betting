@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-type FormatType = 'short' | 'full' | 'remaining'
+type FormatType = 'minutes' | 'date-time' | 'date' | 'remaining'
 
 /**
  * Форматирует UNIX timestamp в строку по МСК в трех форматах
@@ -10,7 +10,7 @@ type FormatType = 'short' | 'full' | 'remaining'
  */
 export function useTime(
 	unixTime: number | null | undefined,
-	format: FormatType = 'short',
+	format: FormatType = 'date-time',
 ): string {
 	return useMemo(() => {
 		if (!unixTime) return ''
@@ -21,7 +21,14 @@ export function useTime(
 
 		const now = new Date()
 
-		// Для вычисления в формате оставшегося времени
+		if (format === 'minutes') {
+			const diffMs = timeMs - now.getTime()
+			if (diffMs <= 0) return '0 мин'
+
+			const diffMinutes = Math.floor(diffMs / (1000 * 60))
+			return `${diffMinutes} мин`
+		}
+
 		if (format === 'remaining') {
 			const diffMs = timeMs - now.getTime()
 			if (diffMs <= 0) return '0 дн, 0 ч'
@@ -33,7 +40,6 @@ export function useTime(
 			return `${days} дн, ${hours} ч`
 		}
 
-		// Для остальных форматов: получаем части даты/времени в МСК
 		const opts = { timeZone: 'Europe/Moscow' }
 
 		const day = date.toLocaleString('ru-RU', { ...opts, day: '2-digit' })
@@ -41,16 +47,22 @@ export function useTime(
 		const yearFull = date.toLocaleString('ru-RU', { ...opts, year: 'numeric' })
 		const yearShort = yearFull.slice(2)
 
-		const hour = date.toLocaleString('ru-RU', { ...opts, hour: '2-digit', hour12: false })
-		const minute = date.toLocaleString('ru-RU', { ...opts, minute: '2-digit' })
+		const hour = date.toLocaleString('ru-RU', {
+			timeZone: 'Europe/Moscow',
+			hour: 'numeric',
+			hour12: false,
+		})
+		const minuteRaw = date.toLocaleString('ru-RU', {
+			timeZone: 'Europe/Moscow',
+			minute: 'numeric',
+		})
+		const minute = minuteRaw.toString().padStart(2, '0')
 
-		if (format === 'short') {
-			// "28.05, 13:23"
+		if (format === 'date-time') {
 			return `${day}.${month}, ${hour}:${minute}`
 		}
 
-		if (format === 'full') {
-			// "14.06.25"
+		if (format === 'date') {
 			return `${day}.${month}.${yearShort}`
 		}
 

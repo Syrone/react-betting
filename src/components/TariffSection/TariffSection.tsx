@@ -1,5 +1,7 @@
-import { useState, useEffect, type FormEvent } from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
+
+import { type ISubscription } from '@models/ISubscription'
 
 import { selectorAuth } from '@redux/auth/selectors'
 
@@ -15,7 +17,7 @@ export const TARIFFS:TariffProps[] = [
 		subscription_id: 1,
 		name: 'Basic',
 		subname: 'Для знакомства с сервисом и понимания принципов работы',
-		price: '0',
+		price: 0,
 		list: [
 			'Вилки с доходностью до 1%',
 			'Ограниченный набор связок',
@@ -28,7 +30,7 @@ export const TARIFFS:TariffProps[] = [
 		label: 'Самый популярный',
 		name: 'Premium',
 		subname: 'Для тех, кто ценит эффективность и результат',
-		price: '2999',
+		price: 2999,
 		list: [
 			'Все вилки, включая высокодоходные',
 			'Полный доступ ко всем связкам и событиям',
@@ -42,7 +44,7 @@ export const TARIFFS:TariffProps[] = [
 		subscription_id: 3,
 		name: 'Про плюс',
 		subname: 'Для производственных приложений с возможностью масштабирования',
-		price: '40',
+		price: 5999,
 		list: [
 			'Unlimited API requests',
 			'50,000 monthly active users',
@@ -64,7 +66,7 @@ export default function Tariffs({}: Props) {
 	const [dashboardMode, setDashboardMode] = useState<DashboardModalMode>('subscription')
 	const [dashboardState, setDashboardState] = useState<'closed' | 'opening' | 'open' | 'closing'>('closed')
 
-	const [selectedTariff, setSelectedTariff] = useState<TariffProps | null>(null)
+	const [selectedTariff, setSelectedTariff] = useState<ISubscription | null>(null)
 
 	const { isAuth } = useSelector(selectorAuth)
 
@@ -85,7 +87,7 @@ export default function Tariffs({}: Props) {
 		}, 300)
 	}
 
-	const openDashboardModal = (mode: DashboardModalMode, tariff: TariffProps) => {
+	const openDashboardModal = (mode: DashboardModalMode, tariff: ISubscription) => {
 		setDashboardMode(mode)
   	setSelectedTariff(tariff)
 		setDashboardState('opening')

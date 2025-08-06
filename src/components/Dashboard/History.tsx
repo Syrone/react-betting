@@ -4,10 +4,11 @@ import clsx from 'clsx'
 
 import { useAppDispatch } from '@redux/store'
 import { operations } from '@redux/user/slice'
-import { selectorLastOperation, selectorOperationPage, selectorOperationStatus } from '@redux/user/selectors'
+import { selectorUser, selectorLastOperation, selectorOperationPage, selectorOperationStatus } from '@redux/user/selectors'
 
 import { type IOperationItem } from '@models/IOperationItem'
 
+import Loader from '@components/Loader/Loader'
 import { Button } from '@components/Button/Button'
 import Icon from '@components/Icon/Icon'
 import HistoryRow from '@components/Dashboard/HistoryRow'
@@ -18,12 +19,15 @@ type Props = {}
 
 export default function History({ }: Props) {
 	const dispatch = useAppDispatch()
+	const { status } = useSelector(selectorUser)
 	const { items, total_count } = useSelector(selectorLastOperation)
 	const operationsPage = useSelector(selectorOperationPage)
 	const operationsStatus = useSelector(selectorOperationStatus)
 
   const isEmpty = items.length === 0
   const allLoaded = items.length >= total_count
+
+	if (status === 'failed') return null
 
 	return (
 		<div className={styles.history}>
@@ -37,12 +41,20 @@ export default function History({ }: Props) {
 				styles.historyMain,
 				isEmpty && styles.historyMainEmpty
 			)}>
-				{isEmpty ? (
-					<div className={styles.historyEmpty}>
-						<Icon name='empty' className={styles.historyEmptyIcon} />
-						<p>Здесь пока что пусто</p>
-					</div>
-				) : (
+				{isEmpty && (
+					status === 'loading' ? (
+            <Loader
+              type='component'
+              words={['history', 'profits', 'wallet', 'crypto', 'bets']}
+            />
+          ) : (
+            <div className={styles.historyEmpty}>
+              <Icon name='empty' className={styles.historyEmptyIcon} />
+              <p>Здесь пока что пусто</p>
+            </div>
+          )
+				)}
+				{!isEmpty && (
 					<>
 						<div className={styles.historyWrapper}>
 							<table className={styles.historyTable}>
@@ -65,7 +77,7 @@ export default function History({ }: Props) {
 							<div className={styles.historyActions}>
 								<Button 
 									size='base' 
-									style='dark' 
+									btnStyle='dark' 
 									className={styles.historyMore}
 									onClick={() => dispatch(operations({ page: operationsPage, per_page: 10 }))}>
 									{operationsStatus === 'loading' ? 'Загрузка...' : 'Показать еще'}

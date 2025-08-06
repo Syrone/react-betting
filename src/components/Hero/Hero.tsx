@@ -23,7 +23,7 @@ export default function Hero({ }: Props) {
 						href='/tariffs'
 						className={styles.heroButton}
 						size='base'
-						style='primary'>
+						btnStyle='primary'>
 						Посмотреть тарифы
 					</ButtonLink>
 				</div>

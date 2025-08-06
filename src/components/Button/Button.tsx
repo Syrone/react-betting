@@ -10,7 +10,7 @@ import styles from './Button.module.scss'
 type BaseButtonProps = {
 	className?: string;
 	size?: string,
-	style?: string,
+	btnStyle?: string,
 	icon?: string;
 	iconClassName?: string;
 	children?: React.ReactNode;
@@ -27,7 +27,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 			type = 'button',
 			className,
 			size,
-			style,
+			btnStyle,
 			icon,
 			iconClassName,
 			children,
@@ -44,7 +44,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 					styles.btn,
 					className,
 					size && styles[`btn-${size}`],
-					style && styles[`btn-${style}`],
+					btnStyle && styles[`btn-${btnStyle}`],
 					isActive && styles['is-active'],
 				)}
 				{...rest}>
@@ -66,7 +66,7 @@ export const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
 			href = '/',
 			className,
 			size,
-			style,
+			btnStyle,
 			icon,
 			iconClassName,
 			children,
@@ -83,7 +83,7 @@ export const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
 					styles.btn,
 					className,
 					size && styles[`btn-${size}`],
-					style && styles[`btn-${style}`],
+					btnStyle && styles[`btn-${btnStyle}`],
 					isActive && styles['is-active'],
 				)}
 				{...rest}>
@@ -98,9 +98,10 @@ export const ButtonAnchor = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
 	(
 		{
 			href = '/',
+			target,
 			className,
 			size,
-			style,
+			btnStyle,
 			icon,
 			iconClassName,
 			children,
@@ -113,13 +114,13 @@ export const ButtonAnchor = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
 			<a
 				ref={ref}
 				href={href}
-				target="_blank"
+				target={target}
 				rel="noopener noreferrer"
 				className={clsx(
 					styles.btn,
 					className,
 					size && styles[`btn-${size}`],
-					style && styles[`btn-${style}`],
+					btnStyle && styles[`btn-${btnStyle}`],
 					isActive && styles['is-active'],
 				)}
 				{...rest}>

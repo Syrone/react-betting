@@ -135,7 +135,7 @@ const Select: React.FC<SelectProps> = ({
 					styles.selectButton,
 					isOpen && styles.isActive
 				)}
-				style='dark'
+				btnStyle='dark'
 				iconClassName={styles.selectButtonIcon}
 				icon='arrowBottom'
 				onClick={toggleOpen}>
@@ -234,14 +234,14 @@ const Select: React.FC<SelectProps> = ({
 						<div className={styles.selectActions}>
 							<Button
 								className={styles.selectAction}
-								style='dark'
+								btnStyle='dark'
 								size='md'
 								onClick={resetMulti}>
 								Сбросить
 							</Button>
 							<Button
 								className={styles.selectAction}
-								style='primary'
+								btnStyle='primary'
 								size='md'
 								onClick={applyMulti}>
 								Применить

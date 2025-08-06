@@ -43,6 +43,7 @@ import Sort from "@icons/sort.svg?react"
 import Telegram from "@icons/telegram.svg?react"
 import Time from "@icons/time.svg?react"
 import Upward from "@icons/upward.svg?react"
+import Usdt from "@icons/usdt.svg?react"
 import User from "@icons/user.svg?react"
 
 type IconsMap = {
@@ -88,6 +89,7 @@ const icons: IconsMap = {
   telegram: Telegram,
   time: Time,
   upward: Upward,
+  usdt: Usdt,
   user: User,
 }
 

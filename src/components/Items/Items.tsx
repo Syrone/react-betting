@@ -1,240 +1,48 @@
-import { type ItemProps } from '@components/Item/Item'
+import clsx from 'clsx'
 
+import { useBetsQuery } from '@hooks/useBetsQuery'
+
+import Loader from '@components/Loader/Loader'
 import Section from '@components/Section/Section'
 import Filters from '@components/Filters/Filters'
+import Feedback from '@components/Feedback/Feedback'
 import Item from '@components/Item/Item'
 
 import styles from './Items.module.scss'
 
-const ITEMS: ItemProps[] = [
-	{
-		date: '28.05, 02:00',
-		sport: 'Футбол',
-		title: 'Palestino — Mushuc',
-		live: true,
-		time: '10 м',
-		profit: '4,21',
-		bookies: [
-			{
-				name: { label: 'Pixbet285', href: '#' },
-				outcome: 'Ф1 (+2)',
-				odds: {
-					index: '1',
-					label: '24.030',
-					direction: 'up'
-				}
-			},
-			{
-				name: { label: 'FavBet', href: '#' },
-				outcome: 'Ф1 (+2)',
-				odds: {
-					index: 'x',
-					label: '24.030',
-					direction: 'down'
-				}
-			},
-			{
-				name: { label: 'William Hill', href: '#' },
-				outcome: 'Ф1 (+2)',
-				odds: {
-					index: '2',
-					label: '24.030',
-					direction: 'up'
-				}
-			},
-		],
-		status: 'free'
-	},
-	{
-		date: '28.05, 02:00',
-		sport: 'Футбол',
-		title: 'Sao Paulo — CA Talleres de Córdoba',
-		live: false,
-		time: '10 м',
-		profit: '4,21',
-		bookies: [
-			{
-				name: { label: 'Pixbet285', href: '#' },
-				outcome: 'Ф1 (+2)',
-				odds: {
-					index: '1',
-					label: '24.030',
-					direction: 'up'
-				}
-			},
-			{
-				name: { label: 'FavBet', href: '#' },
-				outcome: 'Ф1 (+2)',
-				odds: {
-					index: 'x',
-					label: '24.030',
-					direction: 'down'
-				}
-			},
-			{
-				name: { label: 'William Hill', href: '#' },
-				outcome: 'Ф1 (+2)',
-				odds: {
-					index: '2',
-					label: '24.030',
-					direction: 'up'
-				}
-			},
-		],
-		status: 'free'
-	},
-	{
-		date: '28.05, 02:00',
-		sport: 'Футбол',
-		title: 'Talaea El Gaish — Modern Sport FC',
-		live: true,
-		time: '10 м',
-		profit: '4,21',
-		bookies: [
-			{
-				name: { label: 'Pixbet285', href: '#' },
-				outcome: 'Ф1 (+2)',
-				odds: {
-					index: '1',
-					label: '24.030',
-					direction: 'up'
-				}
-			},
-			{
-				name: { label: 'William Hill', href: '#' },
-				outcome: 'Ф1 (+2)',
-				odds: {
-					index: '2',
-					label: '24.030',
-					direction: 'up'
-				}
-			}
-		],
-		status: 'free'
-	},
-	{
-		live: true,
-		status: 'paid'
-	},
-	{
-		date: '28.05, 02:00',
-		sport: 'Футбол',
-		title: 'Palestino — Mushuc',
-		live: true,
-		time: '10 м',
-		profit: '4,21',
-		bookies: [
-			{
-				name: { label: 'Pixbet285', href: '#' },
-				outcome: 'Ф1 (+2)',
-				odds: {
-					index: '1',
-					label: '24.030',
-					direction: 'up'
-				}
-			},
-			{
-				name: { label: 'FavBet', href: '#' },
-				outcome: 'Ф1 (+2)',
-				odds: {
-					index: '2',
-					label: '24.030',
-					direction: 'down'
-				}
-			},
-		],
-		status: 'free'
-	},
-	{
-		date: '28.05, 02:00',
-		sport: 'Футбол',
-		title: 'Sao Paulo — CA Talleres de Córdoba',
-		live: true,
-		time: '10 м',
-		profit: '4,21',
-		bookies: [
-			{
-				name: { label: 'Pixbet285', href: '#' },
-				outcome: 'Ф1 (+2)',
-				odds: {
-					index: '1',
-					label: '24.030',
-					direction: 'up'
-				}
-			},
-			{
-				name: { label: 'FavBet', href: '#' },
-				outcome: 'Ф1 (+2)',
-				odds: {
-					index: 'x',
-					label: '24.030',
-					direction: 'down'
-				}
-			},
-			{
-				name: { label: 'William Hill', href: '#' },
-				outcome: 'Ф1 (+2)',
-				odds: {
-					index: '2',
-					label: '24.030',
-					direction: 'up'
-				}
-			},
-		],
-		status: 'free'
-	},
-	{
-		date: '28.05, 02:00',
-		sport: 'Футбол',
-		title: 'Sao Paulo — CA Talleres de Córdoba',
-		live: true,
-		time: '10 м',
-		profit: '4,21',
-		bookies: [
-			{
-				name: { label: 'Pixbet285', href: '#' },
-				outcome: 'Ф1 (+2)',
-				odds: {
-					index: '1',
-					label: '24.030',
-					direction: 'up'
-				}
-			},
-			{
-				name: { label: 'FavBet', href: '#' },
-				outcome: 'Ф1 (+2)',
-				odds: {
-					index: 'x',
-					label: '24.030',
-					direction: 'down'
-				}
-			},
-			{
-				name: { label: 'William Hill', href: '#' },
-				outcome: 'Ф1 (+2)',
-				odds: {
-					index: '2',
-					label: '24.030',
-					direction: 'up'
-				}
-			},
-		],
-		status: 'free'
-	},
-]
-
 type Props = {}
 
 export default function Items({ }: Props) {
+	const { data, isLoading, error } = useBetsQuery()
+	
+	const items = data || []
+	
+	if (error) {
+		return (
+			<Section className={styles.items}>
+				<Feedback message="Ошибка загрузки" />
+			</Section>
+		)
+	}
+	
 	return (
 		<Section className={styles.items}>
 			<Filters />
-			<ul className={styles.itemsList}>
-					{ITEMS.map((item, i) => (
-						<li key={i} className={styles.itemsListItem}>
+			<ul className={styles.root}>
+				{isLoading ? (
+					<li className={clsx(
+						styles.item,
+						styles.feedback
+					)}>
+						<Loader type='component' />
+					</li>
+				) : (
+					items.map((item) => (
+						<li key={item.id} className={styles.item}>
 							<Item {...item} />
 						</li>
-					))}
+					))
+				)}
 			</ul>
 		</Section>
 	)

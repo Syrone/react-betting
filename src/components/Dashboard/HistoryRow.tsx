@@ -9,8 +9,8 @@ import Icon from '@components/Icon/Icon'
 import styles from './Dashboard.module.scss'
 
 export default function HistoryRow({ amount, created_at, id, status, type }: IOperationItem) {
-	const createdAtTime = useTime(created_at, 'short')
-	const createdAt2Time = useTime(created_at, 'full')
+	const createdAtTime = useTime(created_at, 'date-time')
+	const createdAt2Time = useTime(created_at, 'date')
 
 	return (
 		<tr className={styles.row}>
@@ -33,7 +33,7 @@ export default function HistoryRow({ amount, created_at, id, status, type }: IOp
 			</td>
 			<td>
 				<span className={styles.sum}>
-					+{amount} ₽ <span className='d-lg-none'>ваш на баланс</span>
+					+{amount} ₽
 				</span>
 			</td>
 			<td>

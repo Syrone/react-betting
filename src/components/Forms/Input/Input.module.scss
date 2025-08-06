@@ -49,7 +49,8 @@
 		border-color: var(--_input-focus-border-color);
 	}
 
-	&:not(:placeholder-shown) {
+	&:not(:placeholder-shown),
+	&:-webkit-autofill {
 
 		~ .inputPlaceholder {
 			display: none;

@@ -1,0 +1,49 @@
+@use "@styles/mixins" as mixins;
+
+.root {
+	display: flex;
+	flex-direction: column;
+	gap: 3.5rem;
+}
+
+.header {
+	border-bottom: .0625rem solid var(--gray-400);
+	padding-bottom: 1.5rem;
+}
+
+.body {
+	font-size: var(--fs-sm);
+	margin-bottom: 3rem;
+
+	h2,
+	ol,
+	ul {
+		margin-block: 2rem;
+
+		&:first-child {
+			margin-top: 0;
+		}
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	h2 {
+		font-size: var(--fs-base);
+		margin-block: .25rem;
+	}
+
+	ol {
+		display: flex;
+		flex-direction: column;
+		gap: 2.5rem;
+		margin-block: 2.5rem;
+
+		ul {
+			list-style: disc;
+			list-style-position: inside;
+			margin-block: .5rem;
+		}
+	}
+}

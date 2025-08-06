@@ -176,7 +176,7 @@ const authSlice = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.status = 'failed'
 
-        state.error = action.payload || { message: action.error.message || 'Unknown error', status: 0 }
+        state.error = action.payload || { message: action.error?.message || 'Unknown error', status: 0 }
       })
 
     builder
@@ -190,7 +190,7 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.status = 'failed'
-        state.error = action.payload || { message: action.error.message || 'Unknown error', status: 0 }
+        state.error = action.payload || { message: action.error?.message || 'Unknown error', status: 0 }
       })
 
     builder.addCase(logoutUser.fulfilled, (state) => {
@@ -216,7 +216,7 @@ const authSlice = createSlice({
       })
       .addCase(refreshUser.rejected, (state, action) => {
         state.status = 'failed'
-        state.error = action.payload || { message: action.error.message || 'Unknown error', status: 0 }
+        state.error = action.payload || { message: action.error?.message || 'Unknown error', status: 0 }
         state.user = null
         state.isAuth = false
         state.isRefreshing = false

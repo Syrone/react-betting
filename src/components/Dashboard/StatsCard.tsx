@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux'
 
 import clsx from 'clsx'
 
+import { type ISubscription } from '@models/ISubscription'
+
 import { useTime } from '@hooks/useTime'
 
 import { useAppDispatch } from '@redux/store'
@@ -15,8 +17,6 @@ import { type IField } from '@components/Forms/IField'
 import Input from '@components/Forms/Input/Input'
 import Error from '@components/Forms/Error/Error'
 import SwitchInput from '@components/Forms/SwitchInput/SwitchInput'
-import { TARIFFS } from '@components/TariffSection/TariffSection'
-import { type TariffProps } from '@components/Tariff/Tariff'
 import DashboardModal, { type DashboardModalMode } from '@components/Dashboard/DashboardModal'
 import Feedback from '@components/Feedback/Feedback'
 
@@ -33,6 +33,7 @@ export default function StatsCard({ }: Props) {
 	const { data, status, error, refreshStatus } = useSelector(selectorUser)
 	const { newBalance } = useSelector(selectorPayment)
 
+	const subscription = data?.subscription
 	const balance = newBalance ? newBalance : data?.referral?.current_referral_balance
 	const balanceRef = newBalance ? newBalance : data?.referral?.current_referral_balance
 	const expiresAt = data?.subscription?.expires_at ?? 0
@@ -49,9 +50,9 @@ export default function StatsCard({ }: Props) {
 	const [autoRenewal, setAutoRenewal] = useState(true)
 	const [modalMode, setModalMode] = useState<DashboardModalMode>('subscription')
 	const [modalState, setModalState] = useState<'closed' | 'opening' | 'open' | 'closing'>('closed')
-	const [selectedTariff, setSelectedTariff] = useState<TariffProps | null>(null)
+	const [selectedTariff, setSelectedTariff] = useState<ISubscription | null>(null)
 
-	const openModal = (mode: DashboardModalMode, tariff?: TariffProps) => {
+	const openModal = (mode: DashboardModalMode, tariff?: ISubscription) => {
 		setModalMode(mode)
   	setSelectedTariff(tariff)
 		setModalState('opening')
@@ -193,16 +194,16 @@ export default function StatsCard({ }: Props) {
 							{remaining ? (
 								<Button
 									size='md'
-									style='primary'
+									btnStyle='primary'
 									className={styles.cardHeaderBtn}
-									onClick={() => openModal('subscription', TARIFFS[0])}>
+									onClick={() => openModal('subscription', subscription)}>
 									Продлить
 								</Button>
 							) : (
 								<ButtonLink
 									href='/tariffs'
 									size='md'
-									style='primary'
+									btnStyle='primary'
 									className={styles.cardHeaderBtn}>
 									Посмотреть тарифы
 								</ButtonLink>
@@ -273,7 +274,7 @@ export default function StatsCard({ }: Props) {
 						<div className={styles.cardHeaderActions}>
 							<Button
 								size='md'
-								style='primary'
+								btnStyle='primary'
 								className={styles.cardHeaderBtn}
 								onClick={() => openModal('withdrawal')}
 								disabled={data.referral.current_referral_balance == 0}>
@@ -327,13 +328,14 @@ export default function StatsCard({ }: Props) {
 									<span className={styles.cardSubtitle}>
 										Рефералов
 									</span>
-									<span className={clsx(
-										styles.cardSubtitle,
-										'text-primary',
-										'd-none d-lg-block'
-									)}>
+									<ButtonLink 
+										className={clsx(
+											styles.cardLink,
+											'd-none d-lg-block'
+										)}
+										btnStyle='link'>
 										Условия реферальной программы
-									</span>
+									</ButtonLink>
 								</h4>
 							</div>
 							<form 
@@ -341,7 +343,8 @@ export default function StatsCard({ }: Props) {
 								onSubmit={handleSubmit}
 								noValidate>
 								<Input
-									containerClassName={styles.cardRefsInput}
+									containerClassName={styles.cardRefsInputWrapper}
+									className={styles.cardRefsInput}
 									name='refCode'
 									inputType={isEditing ? 'default' : 'readonly'}
 									inputSize='base'
@@ -357,7 +360,7 @@ export default function StatsCard({ }: Props) {
 									<Button
 										className={styles.cardRefsBtn}
 										size='icon-base'
-										style='secondary'
+										btnStyle='secondary'
 										icon='edit'
 										onClick={handleEditClick}
 									/>
@@ -366,8 +369,8 @@ export default function StatsCard({ }: Props) {
 										type="submit"
 										className={styles.cardRefsBtn}
 										size='icon-base'
-										style='secondary'
-										icon='cycle'
+										btnStyle='secondary'
+										icon='check'
 										disabled={refreshStatus === 'loading'}
 									/>
 								)}
@@ -375,13 +378,14 @@ export default function StatsCard({ }: Props) {
 							{formError && (
 								<Error error={formError} />
 							)}
-							<span className={clsx(
-								styles.cardSubtitle,
-								'text-primary',
-								'd-lg-none'
-							)}>
+							<ButtonLink 
+								className={clsx(
+									styles.cardLink,
+									'd-lg-none'
+								)}
+								btnStyle='link'>
 								Условия реферальной программы
-							</span>
+							</ButtonLink>
 						</div>
 					</div>
 				</div>

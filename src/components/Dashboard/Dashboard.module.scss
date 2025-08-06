@@ -42,6 +42,10 @@
 		color: var(--gray-300);
 	}
 
+	&Link {
+		--_fs: var(--fs-sm);
+	}
+
 	&Header {
 		display: flex;
 		flex-wrap: wrap;
@@ -144,11 +148,19 @@
 
 		&Main {
 			display: flex;
+			align-items: start;
 			gap: .375rem;
 		}
-
 		&Input {
-			flex: 1 1;
+			text-transform: uppercase;
+
+			&::placeholder {
+				text-transform: initial;
+			}
+
+			&Wrapper {
+				flex: 1 1;
+			}
 		}
 	}
 

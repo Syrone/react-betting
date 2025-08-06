@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import clsx from 'clsx'
 
+import { type BetsResponse } from '@models/response/BetsResponse'
+
 import useMediaQuery from '@hooks/useMediaQuery'
+import { useTime } from '@hooks/useTime'
 
 import { Button, ButtonAnchor } from '@components/Button/Button'
 import Icon from '@components/Icon/Icon'
@@ -13,50 +16,23 @@ import BlockBlur from '@components/BlockBlur/BlockBlur'
 
 import styles from './Item.module.scss'
 
-export interface Bookie {
-	name: { label: string, href: string }
-	outcome: string
-	odds: { index: string, label: string, direction: 'up' | 'down' }
-}
-
-export interface ItemProps {
-	date?: string
-	sport?: string
-	title?: string
-	live?: boolean
-	time?: string
-	profit?: string
-	bookies?: Bookie[]
-	status: 'free' | 'paid'
-}
-
 export default function Item(
 	{
-		date, sport, title, live, time, profit, bookies, status
-	}: ItemProps) {
+		id,
+		teams,
+		sport,
+		start_event,
+		created_at,
+		is_live,
+		pair_lifetime,
+		profit,
+		bookmakers,
+		hide
+	}: BetsResponse) {
 	const [modalState, setModalState] = useState<'closed' | 'opening' | 'open' | 'closing'>('closed')
 	const isDesktop = useMediaQuery('(min-width: 992px)')
-
-	const bookiesBlank: Bookie[] = [
-		{
-			name: { label: 'Pixbet285', href: '#' },
-			outcome: 'Ф1 (+2)',
-			odds: {
-				index: '1',
-				label: '24.030',
-				direction: 'up'
-			}
-		},
-		{
-			name: { label: 'William Hill', href: '#' },
-			outcome: 'Ф1 (+2)',
-			odds: {
-				index: '2',
-				label: '24.030',
-				direction: 'up'
-			}
-		}
-	]
+	const startEventTime = useTime(start_event, 'date-time')
+	const createdAtTime = useTime(created_at, 'minutes')
 
 	const openModal = () => {
 		setModalState('opening')
@@ -78,10 +54,12 @@ export default function Item(
 			<article className={styles.item}>
 				<div className={clsx(
 					styles.itemStatus,
-					status === 'paid' && styles.itemStatusPaid
+					hide && styles.itemBlur
 				)}>
-					{status === 'paid' && (
-						<BlockBlur content='Доступ только по подписке' className={styles.itemStatusCloser} />
+					{hide && (
+						<BlockBlur
+							content='Доступ только по подписке'
+							className={styles.itemStatusCloser} />
 					)}
 					<div className={styles.itemMatch}>
 						<ul className={styles.itemDetails}>
@@ -89,21 +67,21 @@ export default function Item(
 								<Icon
 									className={styles.itemDetailIcon}
 									name='calendar' />
-								<span>{status === 'paid' ? '28.05, 02:00' : date}</span>
+								<span>{startEventTime}</span>
 							</li>
 							<li className={styles.itemDetail}>
 								<Icon
 									className={styles.itemDetailIcon}
 									name='reward' />
-								<span>{status === 'paid' ? 'Футбол' : sport}</span>
+								<span>{sport}</span>
 							</li>
 						</ul>
 						<h3
 							className={styles.itemTitle}>
-							{status === 'paid' ? 'Palestino — Mushuc' : title}
+							{teams}
 						</h3>
 						<ul className={styles.itemTags}>
-							{live && (
+							{is_live && (
 								<li className={clsx(
 									styles.itemTag,
 									styles.itemTagLive
@@ -120,7 +98,7 @@ export default function Item(
 								<Icon
 									className={styles.itemTagIcon}
 									name='time' />
-								<span>{status === 'paid' ? '10 м' : time}</span>
+								<span>{createdAtTime}</span>
 							</li>
 						</ul>
 					</div>
@@ -151,103 +129,54 @@ export default function Item(
 								Коэф.
 							</span>
 						</li>
-						{
-							status === 'free' ? (
-								bookies?.map((item, i) => (
-									<li key={i} className={styles.itemBookie}>
-										<span className={clsx(
-											styles.itemBookieCell,
-											styles.itemBookieName
-										)}>
-											<ButtonAnchor
-												href={item.name.href}
-												className={clsx(
-													styles.itemBookieButton,
-													styles.itemBookieLink
-												)}
-												icon='arrowRight'>
-												{item.name.label}
-											</ButtonAnchor>
-										</span>
-										<span
-											className={clsx(
-												styles.itemBookieCell,
-												styles.itemBookieOutcome
-											)}>
-											<Tooltip content='Спартак победит с форой +2'>
-												<Button
-													className={clsx(
-														styles.itemBookieButton,
-														styles.itemBookieTooltip
-													)}
-													icon='error'>
-													{item.outcome}
-												</Button>
-											</Tooltip>
-										</span>
-										<span
-											className={clsx(
-												styles.itemBookieCell,
-												styles.itemBookieOdds
-											)}>
-											<span>{item.odds.label}</span>
-											<Icon
-												className={clsx(
-													styles.itemBookieOddsIcon,
-													item.odds.direction === 'up' ? styles.itemBookieOddsIconUp : styles.itemBookieOddsIconDown
-												)}
-												name={item.odds.direction === 'up' ? 'upward' : 'downward'} />
-										</span>
-									</li>
-								))
-							) : (
-								bookiesBlank.map((item, i) => (
-									<li key={i} className={styles.itemBookie}>
-										<span className={clsx(
-											styles.itemBookieCell,
-											styles.itemBookieName
-										)}>
-											<ButtonAnchor
-												href={item.name.href}
-												className={clsx(
-													styles.itemBookieButton,
-													styles.itemBookieLink
-												)}
-												icon='arrowRight'>
-												{item.name.label}
-											</ButtonAnchor>
-										</span>
-										<span
-											className={clsx(
-												styles.itemBookieCell,
-												styles.itemBookieOutcome
-											)}>
+						{bookmakers.map(({ name, market, description, event_url_bookmaker, odds_history, status }, index) => (
+							<li key={index} className={styles.itemBookie}>
+								<span className={clsx(
+									styles.itemBookieCell,
+									styles.itemBookieName
+								)}>
+									<ButtonAnchor
+										href={event_url_bookmaker}
+										target='_blank'
+										className={clsx(
+											styles.itemBookieButton,
+											styles.itemBookieLink
+										)}
+										icon='arrowRight'>
+										{name}
+									</ButtonAnchor>
+								</span>
+								<span
+									className={clsx(
+										styles.itemBookieCell,
+										styles.itemBookieOutcome
+									)}>
+									<Tooltip content={description}>
 											<Button
 												className={clsx(
 													styles.itemBookieButton,
 													styles.itemBookieTooltip
 												)}
 												icon='error'>
-												{item.outcome}
+												{market}
 											</Button>
-										</span>
-										<span
-											className={clsx(
-												styles.itemBookieCell,
-												styles.itemBookieOdds
-											)}>
-											<span>{item.odds.label}</span>
-											<Icon
-												className={clsx(
-													styles.itemBookieOddsIcon,
-													item.odds.direction === 'up' ? styles.itemBookieOddsIconUp : styles.itemBookieOddsIconDown
-												)}
-												name={item.odds.direction === 'up' ? 'upward' : 'downward'} />
-										</span>
-									</li>
-								))
-							)
-						}
+									</Tooltip>
+								</span>
+								<span
+									className={clsx(
+										styles.itemBookieCell,
+										styles.itemBookieOdds
+									)}>
+									<span className={styles.itemBookieOddsValue}>{odds_history[0].odds}</span>
+									<Icon
+										className={clsx(
+											styles.itemBookieOddsIcon,
+											status === 'up' ? styles.itemBookieOddsIconUp : styles.itemBookieOddsIconDown
+										)}
+										name={status === 'up' ? 'upward' : 'downward'} />
+								</span>
+							</li>
+						))}
 					</ul>
 				</div>
 				<div className={styles.itemProfit}>
@@ -256,12 +185,12 @@ export default function Item(
 							Прибыль
 						</div>
 						<div className={styles.itemProfitValue}>
-							{status === 'paid' ? '4,21' : profit}%
+							{profit}%
 						</div>
 					</div>
 					<Button
 						className={styles.itemProfitButton}
-						style='icon'
+						btnStyle='icon'
 						icon='calcFill'
 						onClick={modalState === 'open' ? closeModal : openModal} />
 				</div>
@@ -273,29 +202,29 @@ export default function Item(
 					<div className={styles.itemModalContent}>
 						<div className={clsx(
 							styles.itemStatus,
-							status === 'paid' && styles.itemStatusPaid
+							hide && styles.itemBlur
 						)}>
-							{status === 'paid' && (
+							{hide && (
 								<BlockBlur content='Доступ только по подписке' className={styles.itemStatusCloser} />
 							)}
 							<div className={styles.itemModalHeader}>
 								<div className={styles.itemMatch}>
 									<h3
 										className={styles.itemTitle}>
-										{status === 'paid' ? 'Palestino — Mushuc' : title}
+										{teams}
 									</h3>
 									<ul className={styles.itemDetails}>
 										<li className={styles.itemDetail}>
 											<Icon
 												className={styles.itemDetailIcon}
 												name='calendar' />
-											<span>{status === 'paid' ? '28.05, 02:00' : date}</span>
+											<span>{startEventTime}</span>
 										</li>
 										<li className={styles.itemDetail}>
 											<Icon
 												className={styles.itemDetailIcon}
 												name='reward' />
-											<span>{status === 'paid' ? 'Футбол' : sport}</span>
+											<span>{sport}</span>
 										</li>
 									</ul>
 								</div>
@@ -310,76 +239,43 @@ export default function Item(
 									<Button
 										className={styles.itemModalCalcButton}
 										size={isDesktop ? 'base': 'md'}
-										style='primary'>
+										btnStyle='primary'>
 										Рассчитать
 									</Button>
 								</div>
 							</div>
 							<div className={styles.itemModalBody}>
 								<ul className={styles.itemModalBookies}>
-									{status === 'free' ? (
-										bookies?.map((item, i) => (
-											<li key={i} className={styles.itemModalBookie}>
-												<div className={styles.itemModalBookieHeader}>
-													<span className={styles.itemModalBookieCurrent}>
-														{item.odds.index}
-													</span>
-													<h5 className={styles.itemModalBookieName}>
-														{item.name.label}
-													</h5>
-												</div>
-												<div className={styles.itemModalBookieOdds}>
-													{item.odds.label}
-												</div>
-												<dl className={styles.itemModalDetails}>
-													<dt className={styles.itemModalDetailsLabel}>
-														Ставки
-													</dt>
-													<dd className={styles.itemModalDetailsValue}>
-														37.68
-													</dd>
+									{bookmakers.map(({ name, market, odds_history }, index) => (
+										<li key={index} className={styles.itemModalBookie}>
+											<div className={styles.itemModalBookieHeader}>
+												<span className={styles.itemModalBookieCurrent}>
+													{market}
+												</span>
+												<h5 className={styles.itemModalBookieName}>
+													{name}
+												</h5>
+											</div>
+											<div className={styles.itemModalBookieOdds}>
+												{odds_history[0].odds}
+											</div>
+											<dl className={styles.itemModalDetails}>
+												<dt className={styles.itemModalDetailsLabel}>
+													Ставки
+												</dt>
+												<dd className={styles.itemModalDetailsValue}>
+													37.68
+												</dd>
 
-													<dt className={styles.itemModalDetailsLabel}>
-														Выигрыши
-													</dt>
-													<dd className={styles.itemModalDetailsValue}>
-														105.50
-													</dd>
-												</dl>
-											</li>
-										))
-									) : (
-										bookiesBlank.map((item, i) => (
-											<li key={i} className={styles.itemModalBookie}>
-												<div>
-													<span className={styles.itemModalBookieCurrent}>
-														{item.odds.index}
-													</span>
-													<h5 className={styles.itemModalBookieName}>
-														{item.name.label}
-													</h5>
-												</div>
-												<div className={styles.itemModalBookieOdds}>
-													{item.odds.label}
-												</div>
-												<dl className={styles.itemModalDetails}>
-													<dt className={styles.itemModalDetailsLabel}>
-														Ставки
-													</dt>
-													<dd className={styles.itemModalDetailsValue}>
-														37.68
-													</dd>
-
-													<dt className={styles.itemModalDetailsLabel}>
-														Выигрыши
-													</dt>
-													<dd className={styles.itemModalDetailsValue}>
-														105.50
-													</dd>
-												</dl>
-											</li>
-										))
-									)}
+												<dt className={styles.itemModalDetailsLabel}>
+													Выигрыши
+												</dt>
+												<dd className={styles.itemModalDetailsValue}>
+													105.50
+												</dd>
+											</dl>
+										</li>
+									))}
 								</ul>
 							</div>
 						</div>
@@ -389,16 +285,16 @@ export default function Item(
 									Прибыль
 								</div>
 								<div className={styles.itemProfitValue}>
-									5.49 к 5.52
+									5.49 к 5.52
 								</div>
 								<div className={styles.itemProfitLabel}>
-									(5.49% до 5.52%)
+									(5.49% до 5.52%)
 								</div>
 							</div>
 
 							<ToggleInput 
 								className={styles.itemModalCheckbox}
-								label='Округлять все ставки'
+								label='Округлять все ставки'
 								name='round' />
 						</div>
 					</div>

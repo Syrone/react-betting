@@ -1,18 +1,25 @@
 @use "@styles/mixins" as mixins;
 
-.items {
+.root {
+	display: flex;
+	flex-direction: column;
+	gap: .75rem;
 
-	&List {
-		display: flex;
-		flex-direction: column;
-		gap: .75rem;
+	@include mixins.breakpoint-up(lg) {
+		gap: .375rem;
+	}
+}
 
-		@include mixins.breakpoint-up(lg) {
-			gap: .375rem;
-		}
+.item {
+	display: flex;
+}
 
-		&Item {
-			display: flex;
-		}
+.feedback {
+	height: 50vh;
+	min-height: 15rem;
+	position: relative;
+
+	@supports(height: 50dvh) {
+		height: 50dvh;
 	}
 }

@@ -73,7 +73,7 @@ const Alert: React.FC<AlertProps> = ({
 				<Button
 					className={styles.alertClose}
 					size='base'
-					style='primary'
+					btnStyle='primary'
 					onClick={onClose}>
 					Принять
 				</Button>

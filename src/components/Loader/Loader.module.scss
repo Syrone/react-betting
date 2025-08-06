@@ -1,22 +1,29 @@
-.loader,
-.content {
+.root,
+.body {
 	display: flex;
 	align-items: center;
 }
 
-.loader {
+.root {
 	justify-content: center;
 	font-size: var(--h4);
 	font-weight: 700;
 	line-height: 1;
 	color: var(--gray-300);
 	background-color: var(--body-bg);
-	position: fixed;
 	inset: 0;
 	z-index: 1100;
 }
 
-.content {
+.page {
+	position: fixed;
+}
+
+.component {
+  position: absolute;
+}
+
+.body {
 	gap: .25em;
 	margin: 2rem var(--container-offset);
 }
@@ -42,7 +49,7 @@
 	> span {
 		display: block;
 		height: 100%;
-		color: var(--primary-800);
+		color: var(--primary);
 		animation: spin 4s infinite;
 	}
 }

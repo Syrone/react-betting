@@ -96,10 +96,10 @@ export default function Header({ }: Props) {
 			</div>
 		) : (
 			<div className={styles.headerButtons}>
-				<Button style='primary' size={size} className={styles.headerButton} onClick={() => openAuthModal('login')}>
+				<Button btnStyle='primary' size={size} className={styles.headerButton} onClick={() => openAuthModal('login')}>
 					Войти
 				</Button>
-				<Button style='outline-primary' size={size} className={styles.headerButton} onClick={() => openAuthModal('register')}>
+				<Button btnStyle='outline-primary' size={size} className={styles.headerButton} onClick={() => openAuthModal('register')}>
 					Регистрация
 				</Button>
 			</div>
@@ -124,7 +124,7 @@ export default function Header({ }: Props) {
 
 					<Button
 						className={styles.headerMenu}
-						style='icon'
+						btnStyle='icon'
 						icon='menu'
 						onClick={offcanvasState === 'open' ? closeOffcanvas : openOffcanvas}
 					/>
@@ -134,7 +134,7 @@ export default function Header({ }: Props) {
 			<Offcanvas state={offcanvasState} onClose={closeOffcanvas}>
 				<Offcanvas.Header>
 					<Brand />
-					<Button style='icon' icon='close' onClick={closeOffcanvas} />
+					<Button btnStyle='icon' icon='close' onClick={closeOffcanvas} />
 				</Offcanvas.Header>
 				<Offcanvas.Body>
 					{navContent}

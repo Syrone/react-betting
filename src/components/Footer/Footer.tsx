@@ -1,21 +1,22 @@
+import { useYear } from '@hooks/useYear'
+
 import Brand from '../Brand/Brand'
 import { ButtonLink, ButtonAnchor } from '../Button/Button'
 
 import styles from './Footer.module.scss'
 
 const NAV = [
-	{ label: 'О нас', href: '#' },
-	{ label: 'Тарифы', href: '#' },
-	{ label: 'FAQ', href: '#' },
-	{ label: 'API', href: '#' },
-	{ label: 'Поддержка', href: '#' },
-	{ label: 'Условия', href: '#' },
-	{ label: 'Политика', href: '#' },
+	{ label: 'Тарифы', href: '/tariffs' },
+	{ label: 'Условия использования', href: '/terms' },
+	{ label: 'Политика конфиденциальности', href: '/privacy' },
+	{ label: 'Реферальная система', href: '/referrals' },
 ]
 
 type Props = {}
 
 export default function Footer({}: Props) {
+	const currentYear = useYear()
+
 	return (
 		<footer className={styles.footer}>
 			<div className='container'>
@@ -42,20 +43,20 @@ export default function Footer({}: Props) {
 						<ul className={styles.footerContacts}>
 							<li className={styles.footerContact}>
 								<ButtonAnchor
-									href='mailto:template@logo.ru'
+									href='mailto:info@vilixbet.com'
 									className={styles.footerContactLink}
 									iconClassName={styles.footerContactLinkIcon}
 									icon='email'>
-									template@logo.ru
+									info@vilixbet.com
 								</ButtonAnchor>
 							</li>
 							<li className={styles.footerContact}>
 								<ButtonAnchor
-									href='#'
+									href='https://t.me/vilixbet'
 									className={styles.footerContactLink}
 									iconClassName={styles.footerContactLinkIcon}
 									icon='telegram'>
-									@template
+									@vilixbet
 								</ButtonAnchor>
 							</li>
 						</ul>
@@ -64,7 +65,7 @@ export default function Footer({}: Props) {
 				<div className={styles.footerBottom}>
 					<div className={styles.footerCopyright}>
 						<p>
-							2025 ForkScan. Все права защищены. Не является букмекером.
+							{currentYear} VilixBet. Все права защищены. Не является букмекером.
 						</p>
 					</div>
 				</div>

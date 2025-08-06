@@ -114,7 +114,7 @@ export default function ResetPasswordForm({ token }: Props) {
 				)}
 
 				<div className={styles.actions}>
-					<Button type='submit' size='base' style='primary'>
+					<Button type='submit' size='base' btnStyle='primary'>
 						Подтвердить
 					</Button>
 				</div>

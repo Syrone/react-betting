@@ -15,6 +15,18 @@
 		--_card-padding-x: 1.25rem;
 	}
 
+	&Blur {
+		pointer-events: none;
+		user-select: none;
+
+		.itemTitle,
+		.itemBookieButton,
+		.itemBookieOdds,
+		.itemModalBookieCurrent {
+			word-break: break-all;
+		}
+	}
+
 	&,
 	&Status {
 		display: grid;
@@ -40,11 +52,6 @@
 
 		@include mixins.breakpoint-up(lg) {
 			grid-template-columns: minmax(17.75rem, 27.75rem) minmax(27.5rem, 1fr);
-		}
-
-		&Paid {
-			pointer-events: none;
-			user-select: none;
 		}
 	}
 
@@ -174,7 +181,7 @@
 
 	&Bookie {
 		display: grid;
-		grid-template-columns: minmax(7.5rem, 1fr) minmax(5rem, 7.5rem) minmax(5rem, 7.5rem);
+		grid-template-columns: minmax(6.25rem, 1fr) minmax(6.25rem, 10.5rem) minmax(3rem, 6.25rem);
 		gap: .75rem;
 
 		@include mixins.breakpoint-up(lg) {
@@ -222,11 +229,17 @@
 			--_color: inherit;
 
 			flex-direction: row-reverse;
+			justify-content: start;
+			text-align: start;
 		}
 
 		&Odds {
 			display: flex;
 			align-items: center;
+
+			&Value {
+				min-width: 3.25ch;
+			}
 
 			&Icon {
 				--_size: 1.25rem;
@@ -390,7 +403,7 @@
 	&Bookie {
 		--_bookie-gap: .5rem;
 
-		flex: 1 1;
+		flex: 1 1 0;
 		display: flex;
 		flex-direction: column;
 		gap: var(--_bookie-gap);
@@ -425,7 +438,6 @@
 		}
 
 		&Current {
-			font-size: var(--h5);
 			color: var(--gray-300);
 			text-transform: uppercase;
 		}

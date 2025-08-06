@@ -10,6 +10,7 @@ import { payments, withdraw } from '@redux/payment/slice'
 import { selectorPayment } from '@redux/payment/selectors'
 import { selectorUser } from '@redux/user/selectors'
 
+import { type ISubscription } from '@models/ISubscription'
 import { type IPaymentSystem } from '@models/IPaymentSystem'
 
 import Icon from '@components/Icon/Icon'
@@ -28,7 +29,7 @@ export type DashboardModalMode = 'withdrawal' | 'subscription'
 type Props = {
 	state: 'closed' | 'opening' | 'open' | 'closing'
 	mode: DashboardModalMode
-	selectedTariff?: TariffProps | null
+	selectedTariff?: ISubscription | null
 	onClose: () => void
 }
 
@@ -47,7 +48,7 @@ interface IFormFields {
 }
 
 const SELECT_BETTING: Option[] = [
-	{ icon: 'bitcoin', label: 'USDT', value: 'USDT' }
+	{ icon: 'usdt', label: 'USDT', value: 'USDT' }
 ]
 
 const SELECT_NET: Option[] = [
@@ -342,7 +343,7 @@ export default function DashboardModal({ state, mode, selectedTariff, onClose }:
 								<Error error={formError} />
 							)}
 							<div className={styles.modalFormActions}>
-								<Button type='submit' size='base' style='primary'>
+								<Button type='submit' size='base' btnStyle='primary'>
 									{status === 'loading' ? 'Обрабатывается...' : 'Вывести'}
 								</Button>
 							</div>
@@ -362,7 +363,7 @@ export default function DashboardModal({ state, mode, selectedTariff, onClose }:
 							{formError && (
 								<Error error={formError} />
 							)}
-							<Button type='submit' size='base' style='primary'>
+							<Button type='submit' size='base' btnStyle='primary'>
 								{status === 'loading' ? 'Обрабатывается...' : 'Оплатить'}
 							</Button>
 						</div>

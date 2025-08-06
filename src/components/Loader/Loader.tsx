@@ -1,20 +1,23 @@
+import clsx from 'clsx'
+
 import styles from './Loader.module.scss'
 
-const Loader = () => {
+type LoaderProps = {
+  words?: string[]
+  type?: 'page' | 'component'
+}
+
+const Loader = ({ words = ['bets', 'profits', 'analytics', 'bookmakers', 'arbs'], type = 'page' }: LoaderProps) => {
   return (
-    <div className={styles.loader}>
-      <div className={styles.content}>
-				<p>
-					loading
-				</p>
-      	<div className={styles.words}>
-					<span>buttons</span>
-					<span>forms</span>
-					<span>switches</span>
-					<span>cards</span>
-					<span>buttons</span>
-				</div>
-			</div>
+    <div className={clsx(styles.root, styles[type])}>
+      <div className={styles.body}>
+        <p>loading</p>
+        <div className={styles.words}>
+          {words.map((word, idx) => (
+            <span key={idx}>{word}</span>
+          ))}
+        </div>
+      </div>
     </div>
   )
 }

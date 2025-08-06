@@ -152,7 +152,7 @@ export default function Filters({ }: Props) {
 						<>
 							<Button
 								className={styles.buttonSort}
-								style='secondary'
+								btnStyle='secondary'
 								size='md'
 								icon='sort'
 								onClick={offcanvasState === 'open' ? closeOffcanvas : openOffcanvas}>
@@ -160,7 +160,7 @@ export default function Filters({ }: Props) {
 							</Button>
 							<Button
 								className={styles.buttonSearch}
-								style='secondary'
+								btnStyle='secondary'
 								size='md'
 								icon='search'
 								onClick={() => setSearchMode(true)} />
@@ -224,7 +224,7 @@ export default function Filters({ }: Props) {
 							styles.sortButton
 						)}
 						iconClassName={styles.sortButtonIcon}
-						style={isDesktop ? 'secondary' : ''}
+						btnStyle={isDesktop ? 'secondary' : ''}
 						size={isDesktop ? 'md' : ''}
 						icon={filters.sort.dateAsc ? 'sortUp' : 'sortDown'}
 						onClick={toggleDateSort}>
@@ -237,7 +237,7 @@ export default function Filters({ }: Props) {
 							styles.sortButton
 						)}
 						iconClassName={styles.sortButtonIcon}
-						style={isDesktop ? 'secondary' : ''}
+						btnStyle={isDesktop ? 'secondary' : ''}
 						size={isDesktop ? 'md' : ''}
 						icon={filters.sort.incomeAsc ? 'sortUp' : 'sortDown'}
 						onClick={toggleIncomeSort}>
@@ -330,14 +330,14 @@ export default function Filters({ }: Props) {
 					<div className={styles.filtersOffcanvasActions}>
 						<Button
 							className={styles.filtersOffcanvasAction}
-							style='dark'
+							btnStyle='dark'
 							size='base'
 							onClick={resetTempFilters}>
 							Сбросить
 						</Button>
 						<Button
 							className={styles.filtersOffcanvasAction}
-							style='primary'
+							btnStyle='primary'
 							size='base'
 							onClick={applyTempFilters}>
 							Применить

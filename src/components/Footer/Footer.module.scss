@@ -71,6 +71,10 @@
 			--_color: var(--gray-200);
 			--_padding: .25rem 0;
 
+			justify-content: initial;
+			text-align: start;
+			word-break: break-all;
+
 			@include mixins.breakpoint-up(lg) {
 				--_fs: var(--fs-sm);
 				--_padding: 0;

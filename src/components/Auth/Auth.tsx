@@ -289,7 +289,7 @@ export default function Auth({ state, mode, onClose }: Props) {
 								/>
 							) : (
 								<div className={styles.authAddWrapper}>
-									<Button style='text-primary'
+									<Button btnStyle='text-primary'
 										onClick={() => setFormFields(prev => ({
 											...prev,
 											refCode: { ...prev.refCode, show: true }
@@ -306,20 +306,20 @@ export default function Auth({ state, mode, onClose }: Props) {
 					<div className={styles.authActions}>
 						<div className={styles.authButtons}>
 							{authMode !== 'success' && (
-								<Button type='submit' size='base' style='primary'>
+								<Button type='submit' size='base' btnStyle='primary'>
 									{authMode === 'login' && 'Войти'}
 									{authMode === 'register' && 'Регистрация'}
 									{authMode === 'forgot' && 'Отправить пароль'}
 								</Button>
 							)}
 							{authMode === 'success' && (
-								<Button size='base' style='primary' className={styles.authSuccess}
+								<Button size='base' btnStyle='primary' className={styles.authSuccess}
 									onClick={() => onClose()}>
 									Отлично
 								</Button>
 							)}
 							{(authMode === 'forgot') && (
-								<Button style='text-primary'
+								<Button btnStyle='text-primary'
 									onClick={() => changeAuthMode('login')}>
 									Вернуться назад
 								</Button>
@@ -342,11 +342,11 @@ export default function Auth({ state, mode, onClose }: Props) {
 						<>
 							<div className={styles.authActions}>
 								<div className={styles.authToggle}>
-									<Button style='text-primary'
+									<Button btnStyle='text-primary'
 										onClick={() => changeAuthMode('register')}>
 										Регистрация
 									</Button>
-									<Button style='text-primary'
+									<Button btnStyle='text-primary'
 										onClick={() => changeAuthMode('forgot')}>
 										Забыл пароль
 									</Button>

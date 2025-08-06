@@ -86,7 +86,7 @@ Modal.Header = ({ custom = false, children, brand, title, titleIcon, subtitle, o
 				{brand && <Brand className={styles.modalBrand} />}
 				<Button
 					className={styles.modalClose}
-					style='icon'
+					btnStyle='icon'
 					icon='close'
 					onClick={onClose} />
 			</div>
@@ -106,7 +106,7 @@ Modal.Header = ({ custom = false, children, brand, title, titleIcon, subtitle, o
 			</div>
 			<Button
 				className={styles.modalClose}
-				style='icon'
+				btnStyle='icon'
 				icon='close'
 				onClick={onClose} />
 		</div>

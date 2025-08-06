@@ -11,7 +11,7 @@ export interface TariffProps {
 	label?: string
 	name: string
 	subname: string
-	price: string
+	price: number
 	list: string[]
 	chosen: boolean
 	disabled?: boolean
@@ -54,7 +54,7 @@ export default function Tariff({
 				<Button
 					className={styles.tariffButton}
 					size='base'
-					style='primary'
+					btnStyle='primary'
 					onClick={onOpenModal}
 					disabled={chosen || disabled}>
 					{chosen ?
@@ -71,7 +71,7 @@ export default function Tariff({
 					{disabled && <BlockBlur className={styles.blur} />}
 					<p className={clsx(
 						styles.tariffPriceLabel,
-						price === '0' && styles.isInvisible
+						price === 0 && styles.isInvisible
 					)}>
 						От
 					</p>

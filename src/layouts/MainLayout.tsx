@@ -8,6 +8,7 @@ import { type AlertState } from '@components/Alert/Alert'
 import Header from '@components/Header/Header'
 import Footer from '@components/Footer/Footer'
 import Alert from '@components/Alert/Alert'
+import { ButtonLink } from '@components/Button/Button'
 
 type Props = {}
 
@@ -40,8 +41,9 @@ function MainLayout({ }: Props) {
 
 				<Alert state={alertState} type='cookie' onClose={handleClose}>
 					<p>
-						„ООО «Фрешсел» обрабатывает cookies с целью персонализации сервисов и чтобы пользоваться веб-сайтом было удобнее.
-						Вы можете запретить обработку сookies в настройках браузера. Пожалуйста, ознакомьтесь с политикой использования cookies. Читайте подробнее о правилах оказания услуг ООО «Фрешсел».
+						Сайт использует файлы cookie для анализа поведения пользователей и улучшения работы сайта.
+						<br />
+						Продолжая использовать сайт, вы соглашаетесь с использованием файлов cookie в соответствии с нашей <ButtonLink href='/privacy' btnStyle='link'>Политикой использования cookie</ButtonLink>.
 					</p>
 				</Alert>
 			</main>
